@@ -23,13 +23,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Um dia inteiro de imersão com líderes e inovadores em São Paulo. Brunch completo, happy hour com chopp artesanal e apenas 70 ingressos. Garanta o seu.",
+          "Um dia inteiro de imersão com líderes e inovadores em Belo Horizonte, MG. Brunch completo, happy hour com chopp artesanal e apenas 70 ingressos. Garanta o seu.",
       },
       { property: "og:title", content: "Horizonte Global Summit 2026" },
       {
         property: "og:description",
         content:
-          "Um dia inteiro de imersão em São Paulo. Apenas 70 ingressos disponíveis — garanta o seu.",
+          "Um dia inteiro de imersão em Belo Horizonte, MG. Apenas 70 ingressos disponíveis — garanta o seu.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -441,7 +441,7 @@ function Footer() {
         <p className="font-display font-bold tracking-widest text-foreground uppercase">
           Horizonte Global Summit 2026
         </p>
-        <p>São Paulo · Brasil — Todos os direitos reservados</p>
+        <p>Belo Horizonte · MG — Todos os direitos reservados</p>
       </div>
     </footer>
   );
