@@ -109,8 +109,9 @@ export function Globe({ className }: { className?: string }) {
         transparent: true,
         opacity: 0.35,
       });
+      const dotCount = positions.length / 3;
       const randomPoint = () => {
-        const i = Math.floor(Math.random() * DOTS);
+        const i = Math.floor(Math.random() * dotCount);
         return new THREE.Vector3(
           positions[i * 3],
           positions[i * 3 + 1],
