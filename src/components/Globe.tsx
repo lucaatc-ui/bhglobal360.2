@@ -74,8 +74,8 @@ export function Globe({ className }: { className?: string }) {
         const lat = (Math.asin(y) * 180) / Math.PI;
         const lon = (Math.atan2(pz, px) * 180) / Math.PI;
         if (!isLand(lat, lon)) continue;
-        // negate y so north is up (matches the map orientation)
-        posList.push(px * RADIUS, -y * RADIUS, pz * RADIUS);
+        // lat 90 = north pole = +y (top of the sphere)
+        posList.push(px * RADIUS, y * RADIUS, pz * RADIUS);
         // sparse golden "city lights"
         const c = Math.random() < 0.05 ? accentColor : baseColor;
         colList.push(c.r, c.g, c.b);
