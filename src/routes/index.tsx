@@ -166,6 +166,166 @@ function About() {
   );
 }
 
+const agenda = [
+  {
+    day: "Dia 1",
+    date: "12 de novembro",
+    theme: "Abertura & Visão Global",
+    items: [
+      { time: "09h00", title: "Credenciamento e café de boas-vindas" },
+      { time: "10h00", title: "Keynote de abertura: O mundo em 2030" },
+      { time: "14h00", title: "Painel: Expansão internacional sem medo" },
+      { time: "17h00", title: "Rodada de networking global" },
+    ],
+  },
+  {
+    day: "Dia 2",
+    date: "13 de novembro",
+    theme: "Tecnologia & Inovação",
+    items: [
+      { time: "09h30", title: "Keynote: IA aplicada a negócios reais" },
+      { time: "11h00", title: "Workshops simultâneos por trilha" },
+      { time: "14h30", title: "Painel: Capital e investimento cruzando fronteiras" },
+      { time: "18h00", title: "Happy hour com investidores" },
+    ],
+  },
+  {
+    day: "Dia 3",
+    date: "14 de novembro",
+    theme: "Negócios & Legado",
+    items: [
+      { time: "09h30", title: "Rodadas de negócios mediadas" },
+      { time: "13h00", title: "Painel: Liderança para a próxima década" },
+      { time: "16h00", title: "Keynote de encerramento" },
+      { time: "19h00", title: "Jantar de encerramento (VIP Global)" },
+    ],
+  },
+];
+
+function Agenda() {
+  return (
+    <section id="cronograma" className="border-t border-border py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="text-center">
+          <p className="font-display text-sm font-bold tracking-[0.3em] text-gold uppercase">
+            Cronograma
+          </p>
+          <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
+            Três dias, uma jornada completa
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Programação sujeita a ajustes — inscritos recebem a agenda final por e-mail
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+          {agenda.map((d) => (
+            <article
+              key={d.day}
+              className="flex flex-col rounded-3xl border border-border bg-card/60 p-8 transition-transform hover:-translate-y-1"
+            >
+              <div className="flex items-baseline justify-between">
+                <h3 className="font-display text-2xl font-extrabold text-gold">
+                  {d.day}
+                </h3>
+                <span className="text-sm text-muted-foreground">{d.date}</span>
+              </div>
+              <p className="mt-2 font-display text-lg font-bold">{d.theme}</p>
+              <ul className="mt-6 flex-1 space-y-5">
+                {d.items.map((item) => (
+                  <li key={item.time} className="flex items-start gap-4">
+                    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-bold text-gold">
+                      <Clock className="h-3 w-3" />
+                      {item.time}
+                    </span>
+                    <span className="pt-1 text-sm text-muted-foreground">
+                      {item.title}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const speakers = [
+  {
+    photo: speaker1,
+    name: "Helena Vasconcellos",
+    role: "CEO · Vetta Global",
+    topic: "Expansão internacional",
+  },
+  {
+    photo: speaker2,
+    name: "Daniel Okonkwo",
+    role: "CTO · Nubiral Tech",
+    topic: "IA aplicada a negócios",
+  },
+  {
+    photo: speaker3,
+    name: "Mariana Duarte",
+    role: "Fundadora · Atlântico Ventures",
+    topic: "Captação e investimento",
+  },
+  {
+    photo: speaker4,
+    name: "Ricardo Almeida",
+    role: "Chairman · Horizonte Capital",
+    topic: "Liderança e legado",
+  },
+];
+
+function Speakers() {
+  return (
+    <section id="palestrantes" className="border-t border-border py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="text-center">
+          <p className="font-display text-sm font-bold tracking-[0.3em] text-gold uppercase">
+            Palestrantes
+          </p>
+          <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
+            Quem vai subir ao palco
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Primeiros nomes confirmados — a lineup completa será revelada em breve
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {speakers.map((s) => (
+            <article
+              key={s.name}
+              className="group overflow-hidden rounded-3xl border border-border bg-card/60 transition-transform hover:-translate-y-1"
+            >
+              <div className="relative overflow-hidden">
+                <img
+                  src={s.photo}
+                  alt={`Foto de ${s.name}`}
+                  width={1024}
+                  height={1024}
+                  loading="lazy"
+                  className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute bottom-3 left-3 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
+                  {s.topic}
+                </span>
+              </div>
+              <div className="p-5">
+                <h3 className="font-display text-lg font-bold">{s.name}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{s.role}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 const tickets = [
   {
     name: "Experiência",
@@ -283,7 +443,9 @@ function LandingPage() {
       <Hero />
       <StatsBar />
       <About />
+      <Agenda />
       <Tickets />
+      <Speakers />
       <Footer />
     </main>
   );
