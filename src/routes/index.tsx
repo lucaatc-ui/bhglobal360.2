@@ -83,11 +83,11 @@ function Hero() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
             <span className="inline-flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-gold" />
-              12 de novembro de 2026
+              10 de outubro de 2026
             </span>
             <span className="inline-flex items-center gap-2">
               <MapPin className="h-4 w-4 text-gold" />
-              São Paulo · Expo Center Norte
+              Belo Horizonte · MG
             </span>
           </div>
 
@@ -190,7 +190,7 @@ function Agenda() {
             Um dia, uma jornada completa
           </h2>
           <p className="mt-4 text-muted-foreground">
-            12 de novembro de 2026 · Programação sujeita a ajustes
+            10 de outubro de 2026 · Belo Horizonte, MG · Programação sujeita a ajustes
           </p>
         </div>
 
