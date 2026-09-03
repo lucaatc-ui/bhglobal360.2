@@ -37,33 +37,57 @@ export function Globe({ className }: { className?: string }) {
 
       const RADIUS = 1;
 
-      // Dotted sphere (fibonacci distribution)
-      const DOTS = 2600;
-      const positions = new Float32Array(DOTS * 3);
-      const colors = new Float32Array(DOTS * 3);
+      // Continents: sample a real equirectangular world map and place
+      // dots only where the map shows land (land is dark in the mask).
+      const mapImg = new Image();
+      mapImg.src = earthMapUrl;
+      await mapImg.decode();
+      if (cancelled || !mountRef.current) return;
+
+      const mapCanvas = document.createElement("canvas");
+      mapCanvas.width = mapImg.width;
+      mapCanvas.height = mapImg.height;
+      const mctx = mapCanvas.getContext("2d")!;
+      mctx.drawImage(mapImg, 0, 0);
+      const mapData = mctx.getImageData(0, 0, mapCanvas.width, mapCanvas.height).data;
+
+      const isLand = (lat: number, lon: number) => {
+        // lat in [-90, 90], lon in [-180, 180]
+        const x = Math.floor(((lon + 180) / 360) * mapCanvas.width);
+        const y = Math.floor(((90 - lat) / 180) * mapCanvas.height);
+        const idx = (y * mapCanvas.width + x) * 4;
+        return mapData[idx] < 128; // dark pixel = land
+      };
+
       const baseColor = new THREE.Color("#4a5a75");
       const accentColor = new THREE.Color("#f0c45c");
-      const goldenRatio = Math.PI * (3 - Math.sqrt(5));
-      for (let i = 0; i < DOTS; i++) {
-        const y = 1 - (i / (DOTS - 1)) * 2;
+      const posList: number[] = [];
+      const colList: number[] = [];
+      const GOLDEN = Math.PI * (3 - Math.sqrt(5));
+      const SAMPLES = 24000;
+      for (let i = 0; i < SAMPLES; i++) {
+        const y = 1 - (i / (SAMPLES - 1)) * 2;
         const r = Math.sqrt(1 - y * y);
-        const theta = goldenRatio * i;
-        positions[i * 3] = Math.cos(theta) * r * RADIUS;
-        positions[i * 3 + 1] = y * RADIUS;
-        positions[i * 3 + 2] = Math.sin(theta) * r * RADIUS;
+        const theta = GOLDEN * i;
+        const px = Math.cos(theta) * r;
+        const pz = Math.sin(theta) * r;
+        const lat = (Math.asin(y) * 180) / Math.PI;
+        const lon = (Math.atan2(pz, px) * 180) / Math.PI;
+        if (!isLand(lat, lon)) continue;
+        posList.push(px * RADIUS, y * RADIUS, pz * RADIUS);
         // sparse golden "city lights"
-        const c = Math.random() < 0.07 ? accentColor : baseColor;
-        colors[i * 3] = c.r;
-        colors[i * 3 + 1] = c.g;
-        colors[i * 3 + 2] = c.b;
+        const c = Math.random() < 0.05 ? accentColor : baseColor;
+        colList.push(c.r, c.g, c.b);
       }
+      const positions = new Float32Array(posList);
+      const colors = new Float32Array(colList);
       const dotGeometry = new THREE.BufferGeometry();
       dotGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
       dotGeometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
       const dots = new THREE.Points(
         dotGeometry,
         new THREE.PointsMaterial({
-          size: 0.016,
+          size: 0.018,
           vertexColors: true,
           transparent: true,
           opacity: 0.95,
