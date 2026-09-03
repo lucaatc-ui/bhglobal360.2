@@ -5,17 +5,16 @@ import {
   ArrowRight,
   ImagePlus,
   Mic2,
-  Users,
-  Globe2,
-  Sparkles,
+  Ticket,
+  Sun,
+  Coffee,
+  Beer,
   Check,
   Clock,
+  Camera,
 } from "lucide-react";
+import { useRef, useState } from "react";
 import { Globe } from "@/components/Globe";
-import speaker1 from "@/assets/speaker-1.jpg";
-import speaker2 from "@/assets/speaker-2.jpg";
-import speaker3 from "@/assets/speaker-3.jpg";
-import speaker4 from "@/assets/speaker-4.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -24,13 +23,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "O maior encontro de líderes e inovadores da América Latina. Três dias de palestras, networking e negócios globais em São Paulo. Garanta seu ingresso.",
+          "Um dia inteiro de imersão com líderes e inovadores em São Paulo. Brunch completo, happy hour com chopp artesanal e apenas 70 ingressos. Garanta o seu.",
       },
       { property: "og:title", content: "Horizonte Global Summit 2026" },
       {
         property: "og:description",
         content:
-          "Três dias de palestras, networking e negócios globais em São Paulo. Garanta seu ingresso.",
+          "Um dia inteiro de imersão em São Paulo. Apenas 70 ingressos disponíveis — garanta o seu.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -77,14 +76,14 @@ function Hero() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            Três dias reunindo os líderes mais influentes da América Latina
-            para palestras, conexões e oportunidades que atravessam continentes.
+            Um dia inteiro de imersão reunindo líderes e inovadores para
+            palestras, conexões e oportunidades que atravessam continentes.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
             <span className="inline-flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-gold" />
-              12–14 de novembro de 2026
+              12 de novembro de 2026
             </span>
             <span className="inline-flex items-center gap-2">
               <MapPin className="h-4 w-4 text-gold" />
@@ -109,7 +108,7 @@ function Hero() {
           </div>
 
           <p className="mt-5 text-xs text-muted-foreground">
-            Lote 1 disponível até 30 de setembro · Vagas limitadas
+            Lote 1 disponível · Apenas 70 ingressos
           </p>
         </div>
 
@@ -127,18 +126,21 @@ function Hero() {
 
 function StatsBar() {
   const stats = [
-    { icon: Users, value: "+5.000", label: "participantes" },
-    { icon: Mic2, value: "60", label: "palestrantes" },
-    { icon: Globe2, value: "32", label: "países representados" },
-    { icon: Sparkles, value: "3", label: "dias de imersão" },
+    { icon: Ticket, value: "70", label: "ingressos disponíveis" },
+    { icon: Mic2, value: "2", label: "palestrantes especiais" },
+    { icon: Sun, value: "1", label: "dia inteiro de imersão" },
+    { icon: Coffee, value: "Brunch", label: "completo incluso" },
+    { icon: Beer, value: "Happy Hour", label: "com chopp artesanal" },
   ];
   return (
     <section className="border-y border-border bg-surface/50">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-12 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-12 md:grid-cols-3 lg:grid-cols-5">
         {stats.map((s) => (
           <div key={s.label} className="flex flex-col items-center text-center">
             <s.icon className="mb-3 h-6 w-6 text-gold" />
-            <span className="font-display text-4xl font-extrabold">{s.value}</span>
+            <span className="font-display text-3xl font-extrabold sm:text-4xl">
+              {s.value}
+            </span>
             <span className="mt-1 text-sm text-muted-foreground">{s.label}</span>
           </div>
         ))}
@@ -154,99 +156,60 @@ function About() {
         Sobre o evento
       </p>
       <h2 className="font-display mt-4 text-4xl font-extrabold text-balance sm:text-5xl">
-        Um palco, três dias, conexões que cruzam o planeta
+        Um palco, um dia, conexões que cruzam o planeta
       </h2>
       <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
         O Horizonte Global Summit reúne founders, investidores e executivos para
         discutir tecnologia, expansão internacional e as tendências que vão
-        moldar a próxima década. Palestras magistrais, painéis práticos e
-        rodadas de networking desenhadas para gerar negócios reais.
+        moldar a próxima década — tudo em um único dia de imersão, com brunch
+        completo e happy hour com chopp artesanal para fechar com chave de ouro.
       </p>
     </section>
   );
 }
 
 const agenda = [
-  {
-    day: "Dia 1",
-    date: "12 de novembro",
-    theme: "Abertura & Visão Global",
-    items: [
-      { time: "09h00", title: "Credenciamento e café de boas-vindas" },
-      { time: "10h00", title: "Keynote de abertura: O mundo em 2030" },
-      { time: "14h00", title: "Painel: Expansão internacional sem medo" },
-      { time: "17h00", title: "Rodada de networking global" },
-    ],
-  },
-  {
-    day: "Dia 2",
-    date: "13 de novembro",
-    theme: "Tecnologia & Inovação",
-    items: [
-      { time: "09h30", title: "Keynote: IA aplicada a negócios reais" },
-      { time: "11h00", title: "Workshops simultâneos por trilha" },
-      { time: "14h30", title: "Painel: Capital e investimento cruzando fronteiras" },
-      { time: "18h00", title: "Happy hour com investidores" },
-    ],
-  },
-  {
-    day: "Dia 3",
-    date: "14 de novembro",
-    theme: "Negócios & Legado",
-    items: [
-      { time: "09h30", title: "Rodadas de negócios mediadas" },
-      { time: "13h00", title: "Painel: Liderança para a próxima década" },
-      { time: "16h00", title: "Keynote de encerramento" },
-      { time: "19h00", title: "Jantar de encerramento (VIP Global)" },
-    ],
-  },
+  { time: "09h00", title: "Credenciamento e brunch completo de boas-vindas" },
+  { time: "10h30", title: "Keynote de abertura: O mundo em 2030" },
+  { time: "12h00", title: "Adler Martins — palestra especial" },
+  { time: "14h00", title: "Ana Freitas — palestra especial" },
+  { time: "16h00", title: "Painel: Expansão internacional sem medo" },
+  { time: "17h30", title: "Rodada de networking global" },
+  { time: "19h00", title: "Happy Hour com chopp artesanal" },
 ];
 
 function Agenda() {
   return (
     <section id="cronograma" className="border-t border-border py-24">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-3xl px-6">
         <div className="text-center">
           <p className="font-display text-sm font-bold tracking-[0.3em] text-gold uppercase">
             Cronograma
           </p>
           <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
-            Três dias, uma jornada completa
+            Um dia, uma jornada completa
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Programação sujeita a ajustes — inscritos recebem a agenda final por e-mail
+            12 de novembro de 2026 · Programação sujeita a ajustes
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
-          {agenda.map((d) => (
-            <article
-              key={d.day}
-              className="flex flex-col rounded-3xl border border-border bg-card/60 p-8 transition-transform hover:-translate-y-1"
+        <ul className="mt-14 space-y-5">
+          {agenda.map((item) => (
+            <li
+              key={item.time}
+              className="flex items-center gap-5 rounded-2xl border border-border bg-card/60 px-6 py-5 transition-transform hover:-translate-y-0.5"
             >
-              <div className="flex items-baseline justify-between">
-                <h3 className="font-display text-2xl font-extrabold text-gold">
-                  {d.day}
-                </h3>
-                <span className="text-sm text-muted-foreground">{d.date}</span>
-              </div>
-              <p className="mt-2 font-display text-lg font-bold">{d.theme}</p>
-              <ul className="mt-6 flex-1 space-y-5">
-                {d.items.map((item) => (
-                  <li key={item.time} className="flex items-start gap-4">
-                    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-bold text-gold">
-                      <Clock className="h-3 w-3" />
-                      {item.time}
-                    </span>
-                    <span className="pt-1 text-sm text-muted-foreground">
-                      {item.title}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </article>
+              <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-bold text-gold">
+                <Clock className="h-3 w-3" />
+                {item.time}
+              </span>
+              <span className="text-sm text-muted-foreground sm:text-base">
+                {item.title}
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
@@ -254,35 +217,91 @@ function Agenda() {
 
 const speakers = [
   {
-    photo: speaker1,
-    name: "Helena Vasconcellos",
-    role: "CEO · Vetta Global",
-    topic: "Expansão internacional",
+    id: "adler",
+    name: "Adler Martins",
+    role: "Palestrante especial",
+    topic: "Keynote",
   },
   {
-    photo: speaker2,
-    name: "Daniel Okonkwo",
-    role: "CTO · Nubiral Tech",
-    topic: "IA aplicada a negócios",
-  },
-  {
-    photo: speaker3,
-    name: "Mariana Duarte",
-    role: "Fundadora · Atlântico Ventures",
-    topic: "Captação e investimento",
-  },
-  {
-    photo: speaker4,
-    name: "Ricardo Almeida",
-    role: "Chairman · Horizonte Capital",
-    topic: "Liderança e legado",
+    id: "ana",
+    name: "Ana Freitas",
+    role: "Palestrante especial",
+    topic: "Keynote",
   },
 ];
+
+function SpeakerCard({
+  speaker,
+}: {
+  speaker: (typeof speakers)[number];
+}) {
+  const [photo, setPhoto] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = (file: File | undefined) => {
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setPhoto((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return url;
+    });
+  };
+
+  return (
+    <article className="group overflow-hidden rounded-3xl border border-border bg-card/60 transition-transform hover:-translate-y-1">
+      <div className="relative overflow-hidden">
+        {photo ? (
+          <img
+            src={photo}
+            alt={`Foto de ${speaker.name}`}
+            className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="flex aspect-square w-full flex-col items-center justify-center gap-3 bg-surface/60 text-muted-foreground transition-colors hover:bg-surface"
+            aria-label={`Selecionar foto de ${speaker.name}`}
+          >
+            <Camera className="h-10 w-10 text-gold" />
+            <span className="text-sm font-semibold text-foreground">
+              Selecionar foto
+            </span>
+            <span className="text-xs">Clique para enviar a foto de {speaker.name.split(" ")[0]}</span>
+          </button>
+        )}
+        <span className="absolute bottom-3 left-3 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
+          {speaker.topic}
+        </span>
+        {photo && (
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="absolute right-3 bottom-3 rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
+          >
+            Trocar foto
+          </button>
+        )}
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(e) => handleFile(e.target.files?.[0])}
+        />
+      </div>
+      <div className="p-5 text-center">
+        <h3 className="font-display text-xl font-bold">{speaker.name}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{speaker.role}</p>
+      </div>
+    </article>
+  );
+}
 
 function Speakers() {
   return (
     <section id="palestrantes" className="border-t border-border py-24">
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-4xl px-6">
         <div className="text-center">
           <p className="font-display text-sm font-bold tracking-[0.3em] text-gold uppercase">
             Palestrantes
@@ -291,34 +310,13 @@ function Speakers() {
             Quem vai subir ao palco
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Primeiros nomes confirmados — a lineup completa será revelada em breve
+            Dois palestrantes especiais para um dia inesquecível
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto mt-14 grid max-w-2xl gap-6 sm:grid-cols-2">
           {speakers.map((s) => (
-            <article
-              key={s.name}
-              className="group overflow-hidden rounded-3xl border border-border bg-card/60 transition-transform hover:-translate-y-1"
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={s.photo}
-                  alt={`Foto de ${s.name}`}
-                  width={1024}
-                  height={1024}
-                  loading="lazy"
-                  className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <span className="absolute bottom-3 left-3 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
-                  {s.topic}
-                </span>
-              </div>
-              <div className="p-5">
-                <h3 className="font-display text-lg font-bold">{s.name}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{s.role}</p>
-              </div>
-            </article>
+            <SpeakerCard key={s.id} speaker={s} />
           ))}
         </div>
       </div>
@@ -328,32 +326,40 @@ function Speakers() {
 
 const tickets = [
   {
-    name: "Experiência",
+    name: "Lote 1",
     price: "R$ 897",
-    features: ["Acesso aos 3 dias", "Palestras e painéis", "Área de networking", "Certificado digital"],
+    features: [
+      "Acesso ao dia inteiro",
+      "Brunch completo incluso",
+      "Happy Hour com chopp artesanal",
+      "Certificado digital",
+    ],
     highlight: false,
+    tag: "Disponível agora",
   },
   {
-    name: "Business",
-    price: "R$ 1.797",
+    name: "Lote 2",
+    price: "R$ 1.197",
     features: [
-      "Tudo do Experiência",
-      "Assentos reservados",
-      "Rodadas de negócios",
-      "Almoço incluso",
+      "Acesso ao dia inteiro",
+      "Brunch completo incluso",
+      "Happy Hour com chopp artesanal",
+      "Certificado digital",
     ],
     highlight: true,
+    tag: "Em breve",
   },
   {
-    name: "VIP Global",
-    price: "R$ 3.497",
+    name: "Lote 3",
+    price: "R$ 1.497",
     features: [
-      "Tudo do Business",
-      "Backstage com palestrantes",
-      "Jantar de encerramento",
-      "Concierge exclusivo",
+      "Acesso ao dia inteiro",
+      "Brunch completo incluso",
+      "Happy Hour com chopp artesanal",
+      "Certificado digital",
     ],
     highlight: false,
+    tag: "Últimos ingressos",
   },
 ];
 
@@ -366,10 +372,10 @@ function Tickets() {
             Ingressos
           </p>
           <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
-            Escolha sua experiência
+            Apenas 70 ingressos, três lotes
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Lote 1 — preços promocionais por tempo limitado
+            Lote 1 disponível — o preço sobe a cada lote
           </p>
         </div>
 
@@ -384,11 +390,15 @@ function Tickets() {
               }`}
               style={t.highlight ? { boxShadow: "var(--glow-gold)" } : undefined}
             >
-              {t.highlight && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold text-primary-foreground">
-                  MAIS ESCOLHIDO
-                </span>
-              )}
+              <span
+                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold ${
+                  t.highlight
+                    ? "bg-primary text-primary-foreground"
+                    : "border border-border bg-background text-muted-foreground"
+                }`}
+              >
+                {t.tag}
+              </span>
               <h3 className="font-display text-xl font-bold">{t.name}</h3>
               <p className="mt-4">
                 <span className="font-display text-4xl font-extrabold text-gold">
