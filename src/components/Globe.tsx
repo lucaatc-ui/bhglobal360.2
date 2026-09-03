@@ -74,7 +74,8 @@ export function Globe({ className }: { className?: string }) {
         const lat = (Math.asin(y) * 180) / Math.PI;
         const lon = (Math.atan2(pz, px) * 180) / Math.PI;
         if (!isLand(lat, lon)) continue;
-        posList.push(px * RADIUS, y * RADIUS, pz * RADIUS);
+        // negate y so north is up (matches the map orientation)
+        posList.push(px * RADIUS, -y * RADIUS, pz * RADIUS);
         // sparse golden "city lights"
         const c = Math.random() < 0.05 ? accentColor : baseColor;
         colList.push(c.r, c.g, c.b);
@@ -155,7 +156,7 @@ export function Globe({ className }: { className?: string }) {
       glow.scale.setScalar(4.2);
       scene.add(glow);
 
-      globe.rotation.x = 0.25;
+      globe.rotation.x = -0.12;
 
       // Interaction: drag to spin, auto-rotate with inertia
       let velocityY = 0.0028;
@@ -207,7 +208,7 @@ export function Globe({ className }: { className?: string }) {
           extraRotationX *= 0.97;
         }
         globe.rotation.y += velocityY;
-        globe.rotation.x = 0.25 + extraRotationX;
+        globe.rotation.x = -0.12 + extraRotationX;
         renderer.render(scene, camera);
       };
       animate();
