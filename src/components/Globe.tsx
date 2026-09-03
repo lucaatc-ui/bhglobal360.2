@@ -56,7 +56,7 @@ export function Globe({ className }: { className?: string }) {
         const x = Math.floor(((lon + 180) / 360) * mapCanvas.width);
         const y = Math.floor(((90 - lat) / 180) * mapCanvas.height);
         const idx = (y * mapCanvas.width + x) * 4;
-        return mapData[idx] < 128; // dark pixel = land
+        return (mapData[idx] ?? 255) < 128; // dark pixel = land
       };
 
       const baseColor = new THREE.Color("#4a5a75");
