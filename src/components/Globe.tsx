@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
+import earthMapUrl from "@/assets/earth-map.png";
 
 /**
- * Interactive 3D globe (Three.js): dotted sphere with auto-rotation,
- * drag-to-spin with inertia and a soft atmosphere glow.
+ * Interactive 3D globe (Three.js): dotted sphere mapping every continent,
+ * auto-rotation, drag-to-spin with inertia and a soft atmosphere glow.
  */
 export function Globe({ className }: { className?: string }) {
   const mountRef = useRef<HTMLDivElement>(null);
