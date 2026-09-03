@@ -63,8 +63,8 @@
   --surface: oklch(0.18 0.025 255);
   --surface-foreground: oklch(0.95 0.01 250);
 
-  --font-display: "Syne", sans-serif;
-  --font-body: "Sora", sans-serif;
+  --font-display: "Playfair Display", serif;
+  --font-body: "Jost", sans-serif;
 
   --glow-gold: 0 0 60px color-mix(in oklab, var(--gold) 25%, transparent);
   --gradient-hero: radial-gradient(
