@@ -9,8 +9,13 @@ import {
   Globe2,
   Sparkles,
   Check,
+  Clock,
 } from "lucide-react";
 import { Globe } from "@/components/Globe";
+import speaker1 from "@/assets/speaker-1.jpg";
+import speaker2 from "@/assets/speaker-2.jpg";
+import speaker3 from "@/assets/speaker-3.jpg";
+import speaker4 from "@/assets/speaker-4.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
