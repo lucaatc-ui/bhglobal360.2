@@ -59,8 +59,8 @@ export function Globe({ className }: { className?: string }) {
         return (mapData[idx] ?? 255) < 128; // dark pixel = land
       };
 
-      const baseColor = new THREE.Color("#4a5a75");
-      const accentColor = new THREE.Color("#f0c45c");
+      const baseColor = new THREE.Color("#5a6b85");
+      const accentColor = new THREE.Color("#f4f7fb");
       const posList: number[] = [];
       const colList: number[] = [];
       const GOLDEN = Math.PI * (3 - Math.sqrt(5));
@@ -106,9 +106,9 @@ export function Globe({ className }: { className?: string }) {
 
       // Connection arcs between random point pairs
       const arcMaterial = new THREE.LineBasicMaterial({
-        color: "#f0c45c",
+        color: "#f4f7fb",
         transparent: true,
-        opacity: 0.35,
+        opacity: 0.4,
       });
       const dotCount = positions.length / 3;
       const randomPoint = () => {
@@ -141,8 +141,8 @@ export function Globe({ className }: { className?: string }) {
       glowCanvas.width = glowCanvas.height = 256;
       const gctx = glowCanvas.getContext("2d")!;
       const grad = gctx.createRadialGradient(128, 128, 40, 128, 128, 128);
-      grad.addColorStop(0, "rgba(240, 196, 92, 0.18)");
-      grad.addColorStop(0.55, "rgba(120, 140, 190, 0.10)");
+      grad.addColorStop(0, "rgba(244, 247, 251, 0.16)");
+      grad.addColorStop(0.55, "rgba(150, 175, 220, 0.10)");
       grad.addColorStop(1, "rgba(0, 0, 0, 0)");
       gctx.fillStyle = grad;
       gctx.fillRect(0, 0, 256, 256);
