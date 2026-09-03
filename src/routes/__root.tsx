@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "O maior encontro de líderes e inovadores da América Latina. Três dias em São Paulo.",
+          "O maior encontro de líderes e inovadores da América Latina. Um dia em Belo Horizonte, MG.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

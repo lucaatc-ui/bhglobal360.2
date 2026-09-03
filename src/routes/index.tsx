@@ -23,13 +23,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Um dia inteiro de imersão com líderes e inovadores em São Paulo. Brunch completo, happy hour com chopp artesanal e apenas 70 ingressos. Garanta o seu.",
+          "Um dia inteiro de imersão com líderes e inovadores em Belo Horizonte, MG. Brunch completo, happy hour com chopp artesanal e apenas 70 ingressos. Garanta o seu.",
       },
       { property: "og:title", content: "Horizonte Global Summit 2026" },
       {
         property: "og:description",
         content:
-          "Um dia inteiro de imersão em São Paulo. Apenas 70 ingressos disponíveis — garanta o seu.",
+          "Um dia inteiro de imersão em Belo Horizonte, MG. Apenas 70 ingressos disponíveis — garanta o seu.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -83,11 +83,11 @@ function Hero() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
             <span className="inline-flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-gold" />
-              12 de novembro de 2026
+              10 de outubro de 2026
             </span>
             <span className="inline-flex items-center gap-2">
               <MapPin className="h-4 w-4 text-gold" />
-              São Paulo · Expo Center Norte
+              Belo Horizonte · MG
             </span>
           </div>
 
@@ -190,7 +190,7 @@ function Agenda() {
             Um dia, uma jornada completa
           </h2>
           <p className="mt-4 text-muted-foreground">
-            12 de novembro de 2026 · Programação sujeita a ajustes
+            10 de outubro de 2026 · Belo Horizonte, MG · Programação sujeita a ajustes
           </p>
         </div>
 
@@ -441,7 +441,7 @@ function Footer() {
         <p className="font-display font-bold tracking-widest text-foreground uppercase">
           Horizonte Global Summit 2026
         </p>
-        <p>São Paulo · Brasil — Todos os direitos reservados</p>
+        <p>Belo Horizonte · MG — Todos os direitos reservados</p>
       </div>
     </footer>
   );
