@@ -156,7 +156,7 @@ export function Globe({ className }: { className?: string }) {
       glow.scale.setScalar(4.2);
       scene.add(glow);
 
-      globe.rotation.x = 0.25;
+      globe.rotation.x = -0.12;
 
       // Interaction: drag to spin, auto-rotate with inertia
       let velocityY = 0.0028;
@@ -208,7 +208,7 @@ export function Globe({ className }: { className?: string }) {
           extraRotationX *= 0.97;
         }
         globe.rotation.y += velocityY;
-        globe.rotation.x = 0.25 + extraRotationX;
+        globe.rotation.x = -0.12 + extraRotationX;
         renderer.render(scene, camera);
       };
       animate();
