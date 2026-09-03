@@ -1,6 +1,8 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "@fontsource-variable/playfair-display";
+@import "@fontsource-variable/jost";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -63,8 +65,8 @@
   --surface: oklch(0.18 0.025 255);
   --surface-foreground: oklch(0.95 0.01 250);
 
-  --font-display: "Playfair Display", serif;
-  --font-body: "Jost", sans-serif;
+  --font-display: "Playfair Display Variable", "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Jost Variable", "Jost", "Avenir Next", Futura, "Trebuchet MS", sans-serif;
 
   --glow-gold: 0 0 60px color-mix(in oklab, var(--gold) 25%, transparent);
   --gradient-hero: radial-gradient(
