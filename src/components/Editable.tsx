@@ -165,6 +165,20 @@ export function EditProvider({ children }: { children: ReactNode }) {
         {editing && (
           <button
             type="button"
+            onClick={saveNow}
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-semibold shadow-lg backdrop-blur transition-colors ${
+              savedFlash
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-background/90 text-foreground hover:bg-secondary"
+            }`}
+          >
+            <Check className="h-3.5 w-3.5" />
+            {savedFlash ? "Alterações salvas!" : "Salvar alterações"}
+          </button>
+        )}
+        {editing && (
+          <button
+            type="button"
             onClick={reset}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2.5 text-xs font-semibold text-muted-foreground shadow-lg backdrop-blur transition-colors hover:bg-secondary"
           >
