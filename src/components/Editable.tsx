@@ -55,6 +55,21 @@ export function EditProvider({ children }: { children: ReactNode }) {
   const [editing, setEditing] = useState(false);
   const [values, setValues] = useState<Values>({});
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [savedFlash, setSavedFlash] = useState(false);
+
+  const saveNow = useCallback(() => {
+    // garante que o texto em edição seja capturado antes de salvar
+    if (typeof document !== "undefined") {
+      (document.activeElement as HTMLElement | null)?.blur?.();
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(valuesRef.current));
+    } catch {
+      /* ignore */
+    }
+    setSavedFlash(true);
+    window.setTimeout(() => setSavedFlash(false), 2000);
+  }, []);
 
   useEffect(() => {
     try {
@@ -229,6 +244,7 @@ export function Ed({ id, children, as = "span", className }: EdProps) {
       spellCheck={false}
       onFocus={() => setActiveId(id)}
       onClick={() => editing && setActiveId(id)}
+      onInput={(e) => setText(id, e.currentTarget.innerText ?? "")}
       onBlur={(e) => setText(id, e.currentTarget.innerText ?? "")}
       onKeyDown={(e) => {
         if (e.key === "Escape") (e.currentTarget as HTMLElement).blur();
