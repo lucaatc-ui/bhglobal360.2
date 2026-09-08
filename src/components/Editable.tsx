@@ -80,6 +80,11 @@ export function EditProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const valuesRef = useRef<Values>({});
+  useEffect(() => {
+    valuesRef.current = values;
+  }, [values]);
+
   const patch = useCallback((id: string, part: Entry) => {
     setValues((prev) => {
       const next = { ...prev, [id]: { ...prev[id], ...part } };
