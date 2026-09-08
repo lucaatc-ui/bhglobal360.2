@@ -186,8 +186,7 @@ type EdProps = {
 
 /** Texto clicável e editável, com alinhamento e parágrafos, salvo no navegador. */
 export function Ed({ id, children, as = "span", className }: EdProps) {
-  const { editing, get, setText, setAlign, activeId, setActiveId } =
-    useContext(Ctx);
+  const { editing, get, setText, activeId, setActiveId } = useContext(Ctx);
   const ref = useRef<HTMLElement>(null);
   const entry = get(id);
   const value = entry?.text ?? children;
@@ -249,9 +248,6 @@ export function Ed({ id, children, as = "span", className }: EdProps) {
       }}
       style={align ? { textAlign: align } : undefined}
       data-align={align}
-      onDoubleClick={() => {
-        if (editing && !align) setAlign(id, "left");
-      }}
     >
       {value}
     </Tag>
