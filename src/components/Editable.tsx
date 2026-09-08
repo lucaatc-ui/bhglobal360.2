@@ -55,6 +55,21 @@ export function EditProvider({ children }: { children: ReactNode }) {
   const [editing, setEditing] = useState(false);
   const [values, setValues] = useState<Values>({});
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [savedFlash, setSavedFlash] = useState(false);
+
+  const saveNow = useCallback(() => {
+    // garante que o texto em edição seja capturado antes de salvar
+    if (typeof document !== "undefined") {
+      (document.activeElement as HTMLElement | null)?.blur?.();
+    }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(valuesRef.current));
+    } catch {
+      /* ignore */
+    }
+    setSavedFlash(true);
+    window.setTimeout(() => setSavedFlash(false), 2000);
+  }, []);
 
   useEffect(() => {
     try {
@@ -64,6 +79,11 @@ export function EditProvider({ children }: { children: ReactNode }) {
       /* ignore */
     }
   }, []);
+
+  const valuesRef = useRef<Values>({});
+  useEffect(() => {
+    valuesRef.current = values;
+  }, [values]);
 
   const patch = useCallback((id: string, part: Entry) => {
     setValues((prev) => {
@@ -142,6 +162,20 @@ export function EditProvider({ children }: { children: ReactNode }) {
       )}
 
       <div className="fixed right-5 bottom-5 z-50 flex items-center gap-2 print:hidden">
+        {editing && (
+          <button
+            type="button"
+            onClick={saveNow}
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-semibold shadow-lg backdrop-blur transition-colors ${
+              savedFlash
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-background/90 text-foreground hover:bg-secondary"
+            }`}
+          >
+            <Check className="h-3.5 w-3.5" />
+            {savedFlash ? "Alterações salvas!" : "Salvar alterações"}
+          </button>
+        )}
         {editing && (
           <button
             type="button"
@@ -229,6 +263,7 @@ export function Ed({ id, children, as = "span", className }: EdProps) {
       spellCheck={false}
       onFocus={() => setActiveId(id)}
       onClick={() => editing && setActiveId(id)}
+      onInput={(e) => setText(id, e.currentTarget.innerText ?? "")}
       onBlur={(e) => setText(id, e.currentTarget.innerText ?? "")}
       onKeyDown={(e) => {
         if (e.key === "Escape") (e.currentTarget as HTMLElement).blur();
