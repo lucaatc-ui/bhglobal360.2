@@ -271,7 +271,13 @@ const speakers = [
 
 function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
   const [photo, setPhoto] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [pos, setPos] = useState({ x: 50, y: 50 });
+  const [adjusting, setAdjusting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dragRef = useRef<{ x: number; y: number; px: number; py: number } | null>(
+    null,
+  );
 
   const handleFile = (file: File | undefined) => {
     if (!file) return;
@@ -280,16 +286,51 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
       if (prev) URL.revokeObjectURL(prev);
       return url;
     });
+    setZoom(1);
+    setPos({ x: 50, y: 50 });
+    setAdjusting(true);
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!adjusting) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    dragRef.current = { x: e.clientX, y: e.clientY, px: pos.x, py: pos.y };
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragRef.current;
+    if (!d) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const nx = d.px - ((e.clientX - d.x) / rect.width) * 100;
+    const ny = d.py - ((e.clientY - d.y) / rect.height) * 100;
+    setPos({
+      x: Math.min(100, Math.max(0, nx)),
+      y: Math.min(100, Math.max(0, ny)),
+    });
+  };
+
+  const endDrag = () => {
+    dragRef.current = null;
   };
 
   return (
     <article className="group overflow-hidden rounded-3xl border border-border bg-card/60 transition-transform hover:-translate-y-1">
       <div className="relative overflow-hidden">
         {photo ? (
-          <img
-            src={photo}
-            alt={`Foto de ${speaker.name}`}
-            className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          <div
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            className={`aspect-square w-full bg-surface ${adjusting ? "cursor-grab active:cursor-grabbing" : ""}`}
+            style={{
+              backgroundImage: `url(${photo})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: `${zoom * 100}%`,
+              backgroundPosition: `${pos.x}% ${pos.y}%`,
+            }}
+            role="img"
+            aria-label={`Foto de ${speaker.name}`}
           />
         ) : (
           <button
@@ -311,13 +352,22 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
           <Ed id={`speakers.${speaker.id}.topic`}>{speaker.topic}</Ed>
         </span>
         {photo && (
-          <button
-            type="button"
-            onClick={() => inputRef.current?.click()}
-            className="absolute right-3 bottom-3 rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
-          >
-            Trocar foto
-          </button>
+          <div className="absolute right-3 bottom-3 flex gap-2">
+            <button
+              type="button"
+              onClick={() => setAdjusting((v) => !v)}
+              className="rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
+            >
+              {adjusting ? "Concluir" : "Ajustar foto"}
+            </button>
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              className="rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
+            >
+              Trocar foto
+            </button>
+          </div>
         )}
         <input
           ref={inputRef}
@@ -327,6 +377,36 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
       </div>
+      {photo && adjusting && (
+        <div className="border-t border-border bg-surface/50 px-5 py-4 text-left">
+          <p className="text-xs text-muted-foreground">
+            Arraste a foto para reposicionar e use o controle para aproximar.
+          </p>
+          <div className="mt-3 flex items-center gap-3">
+            <span className="text-xs font-semibold">Zoom</span>
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.05}
+              value={zoom}
+              onChange={(e) => setZoom(Number(e.target.value))}
+              className="h-1 w-full cursor-pointer appearance-none rounded-full bg-border accent-primary"
+              aria-label={`Zoom da foto de ${speaker.name}`}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setZoom(1);
+                setPos({ x: 50, y: 50 });
+              }}
+              className="shrink-0 rounded-full border border-border px-3 py-1 text-xs font-semibold transition-colors hover:bg-secondary"
+            >
+              Redefinir
+            </button>
+          </div>
+        </div>
+      )}
       <div className="p-5 text-center">
         <h3 className="font-display text-xl font-bold">
           <Ed id={`speakers.${speaker.id}.name`}>{speaker.name}</Ed>
