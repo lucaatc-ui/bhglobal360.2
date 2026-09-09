@@ -24,6 +24,7 @@ type Values = Record<string, Entry>;
 
 type EditCtx = {
   editing: boolean;
+  version: number;
   get: (id: string) => Entry | undefined;
   setText: (id: string, value: string) => void;
   setAlign: (id: string, align: Align) => void;
@@ -33,6 +34,7 @@ type EditCtx = {
 
 const Ctx = createContext<EditCtx>({
   editing: false,
+  version: 0,
   get: () => undefined,
   setText: () => {},
   setAlign: () => {},
@@ -53,59 +55,80 @@ function normalize(raw: unknown): Values {
 
 export function EditProvider({ children }: { children: ReactNode }) {
   const [editing, setEditing] = useState(false);
-  const [values, setValues] = useState<Values>({});
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
+  // valores ficam num ref: digitar NÃO re-renderiza (evita o cursor pular)
+  const valuesRef = useRef<Values>({});
+  const [version, setVersion] = useState(0);
+  const saveTimer = useRef<number | null>(null);
 
-  const saveNow = useCallback(() => {
-    // garante que o texto em edição seja capturado antes de salvar
-    if (typeof document !== "undefined") {
-      (document.activeElement as HTMLElement | null)?.blur?.();
-    }
+  const persist = useCallback(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(valuesRef.current));
     } catch {
       /* ignore */
     }
+  }, []);
+
+  const schedulePersist = useCallback(() => {
+    if (saveTimer.current) window.clearTimeout(saveTimer.current);
+    saveTimer.current = window.setTimeout(persist, 300);
+  }, [persist]);
+
+  const saveNow = useCallback(() => {
+    if (saveTimer.current) window.clearTimeout(saveTimer.current);
+    persist();
     setSavedFlash(true);
     window.setTimeout(() => setSavedFlash(false), 2000);
-  }, []);
+  }, [persist]);
 
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setValues(normalize(JSON.parse(raw)));
+      if (raw) {
+        valuesRef.current = normalize(JSON.parse(raw));
+        setVersion((v) => v + 1);
+      }
     } catch {
       /* ignore */
     }
   }, []);
 
-  const valuesRef = useRef<Values>({});
+  // salva ao sair/recarregar a página
   useEffect(() => {
-    valuesRef.current = values;
-  }, [values]);
-
-  const patch = useCallback((id: string, part: Entry) => {
-    setValues((prev) => {
-      const next = { ...prev, [id]: { ...prev[id], ...part } };
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      } catch {
-        /* ignore */
-      }
-      return next;
-    });
-  }, []);
+    const handler = () => persist();
+    window.addEventListener("beforeunload", handler);
+    document.addEventListener("visibilitychange", handler);
+    return () => {
+      window.removeEventListener("beforeunload", handler);
+      document.removeEventListener("visibilitychange", handler);
+    };
+  }, [persist]);
 
   const setText = useCallback(
-    (id: string, value: string) => patch(id, { text: value }),
-    [patch],
+    (id: string, value: string) => {
+      valuesRef.current = {
+        ...valuesRef.current,
+        [id]: { ...valuesRef.current[id], text: value },
+      };
+      schedulePersist();
+    },
+    [schedulePersist],
   );
+
   const setAlign = useCallback(
-    (id: string, align: Align) => patch(id, { align }),
-    [patch],
+    (id: string, align: Align) => {
+      valuesRef.current = {
+        ...valuesRef.current,
+        [id]: { ...valuesRef.current[id], align },
+      };
+      persist();
+      setVersion((v) => v + 1);
+    },
+    [persist],
   );
-  const get = useCallback((id: string) => values[id], [values]);
+
+  const get = useCallback((id: string) => valuesRef.current[id], []);
 
   const reset = () => {
     try {
@@ -113,7 +136,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
     } catch {
       /* ignore */
     }
-    setValues({});
+    valuesRef.current = {};
     setEditing(false);
     if (typeof window !== "undefined") window.location.reload();
   };
@@ -126,7 +149,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
 
   return (
     <Ctx.Provider
-      value={{ editing, get, setText, setAlign, activeId, setActiveId }}
+      value={{ editing, version, get, setText, setAlign, activeId, setActiveId }}
     >
       {children}
 
@@ -165,6 +188,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
         {editing && (
           <button
             type="button"
+            onMouseDown={(e) => e.preventDefault()}
             onClick={saveNow}
             className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-semibold shadow-lg backdrop-blur transition-colors ${
               savedFlash
@@ -179,6 +203,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
         {editing && (
           <button
             type="button"
+            onMouseDown={(e) => e.preventDefault()}
             onClick={reset}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2.5 text-xs font-semibold text-muted-foreground shadow-lg backdrop-blur transition-colors hover:bg-secondary"
           >
@@ -188,7 +213,9 @@ export function EditProvider({ children }: { children: ReactNode }) {
         )}
         <button
           type="button"
+          onMouseDown={(e) => e.preventDefault()}
           onClick={() => {
+            if (editing) saveNow();
             setEditing((v) => !v);
             setActiveId(null);
           }}
@@ -220,18 +247,21 @@ type EdProps = {
 
 /** Texto clicável e editável, com alinhamento e parágrafos, salvo no navegador. */
 export function Ed({ id, children, as = "span", className }: EdProps) {
-  const { editing, get, setText, activeId, setActiveId } = useContext(Ctx);
+  const { editing, version, get, setText, activeId, setActiveId } =
+    useContext(Ctx);
   const ref = useRef<HTMLElement>(null);
   const entry = get(id);
-  const value = entry?.text ?? children;
   const align = entry?.align;
+  const initial = entry?.text ?? children;
 
+  // conteúdo é gerenciado fora do React para não interferir no cursor
   useEffect(() => {
     const el = ref.current;
-    if (el && el.innerText !== value && document.activeElement !== el) {
-      el.textContent = value;
-    }
-  }, [value]);
+    if (!el) return;
+    if (document.activeElement === el) return;
+    const text = get(id)?.text ?? children;
+    if (el.innerText !== text) el.textContent = text;
+  }, [id, children, get, version, editing]);
 
   const Tag = as as "span";
   const alignClass =
@@ -246,6 +276,7 @@ export function Ed({ id, children, as = "span", className }: EdProps) {
   return (
     <Tag
       ref={ref as never}
+      suppressHydrationWarning
       className={[
         className,
         alignClass,
@@ -266,25 +297,30 @@ export function Ed({ id, children, as = "span", className }: EdProps) {
       onInput={(e) => setText(id, e.currentTarget.innerText ?? "")}
       onBlur={(e) => setText(id, e.currentTarget.innerText ?? "")}
       onKeyDown={(e) => {
-        if (e.key === "Escape") (e.currentTarget as HTMLElement).blur();
-        if (e.key === "Enter") {
-          // permite parágrafos: quebra de linha simples
-          e.preventDefault();
-          document.execCommand("insertLineBreak");
-        }
-        if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) {
+        if (e.key === "Escape") {
           (e.currentTarget as HTMLElement).blur();
+          return;
+        }
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (e.metaKey || e.ctrlKey) {
+            (e.currentTarget as HTMLElement).blur();
+            return;
+          }
+          document.execCommand("insertLineBreak");
+          setText(id, e.currentTarget.innerText ?? "");
         }
       }}
       onPaste={(e) => {
         e.preventDefault();
         const text = e.clipboardData.getData("text/plain");
         document.execCommand("insertText", false, text);
+        setText(id, e.currentTarget.innerText ?? "");
       }}
       style={align ? { textAlign: align } : undefined}
       data-align={align}
     >
-      {value}
+      {initial}
     </Tag>
   );
 }
