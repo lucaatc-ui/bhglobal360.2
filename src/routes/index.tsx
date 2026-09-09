@@ -239,15 +239,22 @@ function Agenda() {
             >
               <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gold/40 bg-gold/10 px-3 py-1 text-xs font-bold text-gold">
                 <Clock className="h-3 w-3" />
-                <Ed id={`agenda.${item.id}.time`}>{item.time}</Ed>
+                <Ed
+                  id={`agenda.${item.id}.time`}
+                  className="min-w-[3.5rem] text-center"
+                >
+                  {item.time}
+                </Ed>
               </span>
               <Ed
+                as="div"
                 id={`agenda.${item.id}.title`}
-                className="text-sm text-muted-foreground sm:text-base"
+                className="min-w-0 flex-1 text-sm text-muted-foreground sm:text-base"
               >
                 {item.title}
               </Ed>
             </li>
+
           ))}
         </ul>
       </div>
