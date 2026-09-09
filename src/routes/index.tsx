@@ -183,7 +183,7 @@ function About() {
       >
         Sobre o evento
       </Ed>
-      <h2 className="font-display mt-4 text-4xl font-extrabold text-balance sm:text-5xl">
+      <h2 className="font-display mt-4 text-4xl font-extrabold text-balance text-highlight sm:text-5xl">
         <Ed id="about.title">Um palco, um dia, conexões que cruzam o planeta</Ed>
       </h2>
       <Ed
