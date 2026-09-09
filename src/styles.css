@@ -35,6 +35,8 @@
   --color-ring: var(--ring);
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
 }
