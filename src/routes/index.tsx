@@ -377,6 +377,36 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
       </div>
+      {photo && adjusting && (
+        <div className="border-t border-border bg-surface/50 px-5 py-4 text-left">
+          <p className="text-xs text-muted-foreground">
+            Arraste a foto para reposicionar e use o controle para aproximar.
+          </p>
+          <div className="mt-3 flex items-center gap-3">
+            <span className="text-xs font-semibold">Zoom</span>
+            <input
+              type="range"
+              min={1}
+              max={3}
+              step={0.05}
+              value={zoom}
+              onChange={(e) => setZoom(Number(e.target.value))}
+              className="h-1 w-full cursor-pointer appearance-none rounded-full bg-border accent-primary"
+              aria-label={`Zoom da foto de ${speaker.name}`}
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setZoom(1);
+                setPos({ x: 50, y: 50 });
+              }}
+              className="shrink-0 rounded-full border border-border px-3 py-1 text-xs font-semibold transition-colors hover:bg-secondary"
+            >
+              Redefinir
+            </button>
+          </div>
+        </div>
+      )}
       <div className="p-5 text-center">
         <h3 className="font-display text-xl font-bold">
           <Ed id={`speakers.${speaker.id}.name`}>{speaker.name}</Ed>
