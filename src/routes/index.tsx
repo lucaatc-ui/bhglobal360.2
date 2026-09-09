@@ -205,6 +205,7 @@ const agenda = [
   { id: "a2", time: "10h30", title: "Keynote de abertura: O mundo em 2030" },
   { id: "a3", time: "12h00", title: "Adler Martins — palestra especial" },
   { id: "a4", time: "14h00", title: "Ana Freitas — palestra especial" },
+  { id: "a8", time: "15h30", title: "Palestra especial — a definir" },
   { id: "a5", time: "16h00", title: "Painel: Expansão internacional sem medo" },
   { id: "a6", time: "17h30", title: "Rodada de networking global" },
   { id: "a7", time: "19h00", title: "Happy Hour com chopp artesanal" },
