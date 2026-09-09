@@ -39,6 +39,8 @@
   --color-highlight-foreground: var(--highlight-foreground);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
 }
 
 :root {
