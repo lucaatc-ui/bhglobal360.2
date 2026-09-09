@@ -35,6 +35,8 @@
   --color-ring: var(--ring);
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
 }
@@ -62,6 +64,8 @@
   --ring: oklch(0.98 0.005 250);
   --gold: oklch(0.92 0.01 250);
   --gold-foreground: oklch(0.16 0.045 255);
+  --highlight: oklch(0.82 0.17 90);
+  --highlight-foreground: oklch(0.16 0.045 255);
   --surface: oklch(0.20 0.04 255);
   --surface-foreground: oklch(0.98 0.005 250);
 

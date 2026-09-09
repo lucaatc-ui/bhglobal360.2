@@ -183,7 +183,7 @@ function About() {
       >
         Sobre o evento
       </Ed>
-      <h2 className="font-display mt-4 text-4xl font-extrabold text-balance sm:text-5xl">
+      <h2 className="font-display mt-4 text-4xl font-extrabold text-balance text-highlight sm:text-5xl">
         <Ed id="about.title">Um palco, um dia, conexões que cruzam o planeta</Ed>
       </h2>
       <Ed
@@ -223,7 +223,7 @@ function Agenda() {
           >
             Cronograma
           </Ed>
-          <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
+          <h2 className="font-display mt-4 text-4xl font-extrabold text-highlight sm:text-5xl">
             <Ed id="agenda.title">Um dia, uma jornada completa</Ed>
           </h2>
           <Ed as="p" id="agenda.sub" className="mt-4 text-muted-foreground">
@@ -452,7 +452,7 @@ function Speakers() {
           >
             Palestrantes
           </Ed>
-          <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
+          <h2 className="font-display mt-4 text-4xl font-extrabold text-highlight sm:text-5xl">
             <Ed id="speakers.title">Quem vai subir ao palco</Ed>
           </h2>
           <Ed as="p" id="speakers.sub" className="mt-4 text-muted-foreground">
@@ -524,7 +524,7 @@ function Tickets() {
           >
             Ingressos
           </Ed>
-          <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
+          <h2 className="font-display mt-4 text-4xl font-extrabold text-highlight sm:text-5xl">
             <Ed id="tickets.title">Apenas 70 ingressos, três lotes</Ed>
           </h2>
           <Ed as="p" id="tickets.sub" className="mt-4 text-muted-foreground">
