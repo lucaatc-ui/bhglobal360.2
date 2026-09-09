@@ -70,6 +70,8 @@
   --highlight-foreground: oklch(0.16 0.045 255);
   --surface: oklch(0.20 0.04 255);
   --surface-foreground: oklch(0.98 0.005 250);
+  --cta: oklch(0.76 0.22 143);
+  --cta-foreground: oklch(0.18 0.05 145);
 
   --font-display: "Playfair Display Variable", "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: "Jost Variable", "Jost", "Avenir Next", Futura, "Trebuchet MS", sans-serif;
