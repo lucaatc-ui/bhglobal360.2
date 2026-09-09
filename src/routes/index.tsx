@@ -428,6 +428,13 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
         >
           {speaker.role}
         </Ed>
+        <Ed
+          as="p"
+          id={`speakers.${speaker.id}.bio`}
+          className="mt-3 text-sm leading-relaxed text-muted-foreground"
+        >
+          {speaker.bio}
+        </Ed>
       </div>
     </article>
   );
