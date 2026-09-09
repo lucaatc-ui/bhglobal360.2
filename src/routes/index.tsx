@@ -524,7 +524,7 @@ function Tickets() {
           >
             Ingressos
           </Ed>
-          <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
+          <h2 className="font-display mt-4 text-4xl font-extrabold text-highlight sm:text-5xl">
             <Ed id="tickets.title">Apenas 70 ingressos, três lotes</Ed>
           </h2>
           <Ed as="p" id="tickets.sub" className="mt-4 text-muted-foreground">
