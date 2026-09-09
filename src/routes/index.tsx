@@ -512,7 +512,7 @@ function Tickets() {
             Ingressos
           </Ed>
           <h2 className="font-display mt-4 text-4xl font-extrabold text-highlight sm:text-5xl">
-            <Ed id="tickets.title">Apenas 70 ingressos, três lotes</Ed>
+            <Ed id="tickets.title">Apenas 70 ingressos, dois lotes</Ed>
           </h2>
           <Ed as="p" id="tickets.sub" className="mt-4 text-muted-foreground">
             Lote 1 disponível — o preço sobe a cada lote
