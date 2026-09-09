@@ -569,8 +569,8 @@ function Tickets() {
                 href="#"
                 className={`font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition-transform hover:scale-105 ${
                   t.highlight
-                    ? "bg-primary text-primary-foreground"
-                    : "border border-border text-foreground hover:bg-secondary"
+                    ? "bg-cta text-cta-foreground"
+                    : "bg-cta text-cta-foreground"
                 }`}
               >
                 <Ed id={`tickets.${t.id}.cta`}>Comprar agora</Ed>
