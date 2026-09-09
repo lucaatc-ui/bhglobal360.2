@@ -271,7 +271,13 @@ const speakers = [
 
 function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
   const [photo, setPhoto] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const [pos, setPos] = useState({ x: 50, y: 50 });
+  const [adjusting, setAdjusting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dragRef = useRef<{ x: number; y: number; px: number; py: number } | null>(
+    null,
+  );
 
   const handleFile = (file: File | undefined) => {
     if (!file) return;
@@ -280,16 +286,51 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
       if (prev) URL.revokeObjectURL(prev);
       return url;
     });
+    setZoom(1);
+    setPos({ x: 50, y: 50 });
+    setAdjusting(true);
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!adjusting) return;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    dragRef.current = { x: e.clientX, y: e.clientY, px: pos.x, py: pos.y };
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = dragRef.current;
+    if (!d) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const nx = d.px - ((e.clientX - d.x) / rect.width) * 100;
+    const ny = d.py - ((e.clientY - d.y) / rect.height) * 100;
+    setPos({
+      x: Math.min(100, Math.max(0, nx)),
+      y: Math.min(100, Math.max(0, ny)),
+    });
+  };
+
+  const endDrag = () => {
+    dragRef.current = null;
   };
 
   return (
     <article className="group overflow-hidden rounded-3xl border border-border bg-card/60 transition-transform hover:-translate-y-1">
       <div className="relative overflow-hidden">
         {photo ? (
-          <img
-            src={photo}
-            alt={`Foto de ${speaker.name}`}
-            className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          <div
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            className={`aspect-square w-full bg-surface ${adjusting ? "cursor-grab active:cursor-grabbing" : ""}`}
+            style={{
+              backgroundImage: `url(${photo})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: `${zoom * 100}%`,
+              backgroundPosition: `${pos.x}% ${pos.y}%`,
+            }}
+            role="img"
+            aria-label={`Foto de ${speaker.name}`}
           />
         ) : (
           <button
