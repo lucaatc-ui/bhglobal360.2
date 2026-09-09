@@ -105,7 +105,7 @@ function Hero() {
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
             <a
               href="#ingressos"
-              className="animate-pulse-ring font-display inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-bold text-primary-foreground transition-transform hover:scale-105"
+              className="animate-pulse-ring font-display inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-bold text-cta-foreground transition-transform hover:scale-105"
             >
               <Ed id="hero.cta1">Garantir meu ingresso</Ed>
               <ArrowRight className="h-5 w-5" />
