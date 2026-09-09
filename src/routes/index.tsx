@@ -352,13 +352,22 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
           <Ed id={`speakers.${speaker.id}.topic`}>{speaker.topic}</Ed>
         </span>
         {photo && (
-          <button
-            type="button"
-            onClick={() => inputRef.current?.click()}
-            className="absolute right-3 bottom-3 rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
-          >
-            Trocar foto
-          </button>
+          <div className="absolute right-3 bottom-3 flex gap-2">
+            <button
+              type="button"
+              onClick={() => setAdjusting((v) => !v)}
+              className="rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
+            >
+              {adjusting ? "Concluir" : "Ajustar foto"}
+            </button>
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              className="rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
+            >
+              Trocar foto
+            </button>
+          </div>
         )}
         <input
           ref={inputRef}
