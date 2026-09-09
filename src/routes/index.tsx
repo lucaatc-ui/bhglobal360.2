@@ -497,19 +497,6 @@ const tickets = [
     highlight: true,
     tag: "Em breve",
   },
-  {
-    id: "l3",
-    name: "Lote 3",
-    price: "R$ 1.497",
-    features: [
-      "Acesso ao dia inteiro",
-      "Brunch completo incluso",
-      "Happy Hour com chopp artesanal",
-      "Certificado digital",
-    ],
-    highlight: false,
-    tag: "Últimos ingressos",
-  },
 ];
 
 function Tickets() {
