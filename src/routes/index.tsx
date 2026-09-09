@@ -268,12 +268,14 @@ const speakers = [
     name: "Adler Martins",
     role: "Palestrante especial",
     topic: "Keynote",
+    bio: "Empreendedor e referência em expansão internacional, Adler já conduziu operações em mais de 15 países. Em seu keynote, compartilha frameworks práticos para escalar negócios além das fronteiras brasileiras.",
   },
   {
     id: "ana",
     name: "Ana Freitas",
     role: "Palestrante especial",
     topic: "Keynote",
+    bio: "Estrategista de inovação e investidora-anjo, Ana atua no ecossistema de startups há mais de uma década. Sua palestra aborda tendências de tecnologia e como antecipar os movimentos que vão moldar a próxima década.",
   },
 ];
 
