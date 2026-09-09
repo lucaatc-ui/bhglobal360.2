@@ -223,7 +223,7 @@ function Agenda() {
           >
             Cronograma
           </Ed>
-          <h2 className="font-display mt-4 text-4xl font-extrabold sm:text-5xl">
+          <h2 className="font-display mt-4 text-4xl font-extrabold text-highlight sm:text-5xl">
             <Ed id="agenda.title">Um dia, uma jornada completa</Ed>
           </h2>
           <Ed as="p" id="agenda.sub" className="mt-4 text-muted-foreground">
