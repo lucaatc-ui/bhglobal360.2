@@ -14,7 +14,7 @@ import {
   Camera,
 } from "lucide-react";
 import { useRef, useState } from "react";
-import { Globe } from "@/components/Globe";
+
 import { Ed, EditProvider } from "@/components/Editable";
 
 export const Route = createFileRoute("/")({
@@ -47,9 +47,8 @@ function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{ background: "var(--gradient-hero)" }}
       />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 pt-14 pb-20 lg:grid-cols-2 lg:gap-6 lg:pt-20">
-        {/* Coluna de texto */}
-        <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
+      <div className="relative mx-auto max-w-4xl px-6 pt-20 pb-24 text-center">
+        <div className="flex flex-col items-center text-center">
 
 
           <h1 className="font-display mt-8 text-5xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-6xl">
