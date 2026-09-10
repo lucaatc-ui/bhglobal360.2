@@ -44,22 +44,82 @@ export const Route = createFileRoute("/")({
 /* pela imagem da sua logo (ex.: <img src={logo} alt="Logo" />)        */
 /* ------------------------------------------------------------------ */
 function LogoSlot() {
-  return (
-    <div className="animate-float-slow inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-gold/50 bg-surface/60 px-10 py-5 backdrop-blur-sm">
-      <ImagePlus className="h-6 w-6 text-gold" />
-      <div className="text-left">
-        <Ed
-          as="p"
-          id="logo.title"
-          className="font-display text-sm font-bold tracking-widest text-gold uppercase"
-        >
-          Sua logo aqui
-        </Ed>
-        <Ed as="p" id="logo.sub" className="text-xs text-muted-foreground">
-          Espaço reservado — 320 × 96 px recomendado
-        </Ed>
+  const [logo, setLogo] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = (file: File | undefined) => {
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setLogo((prev) => {
+      if (prev) URL.revokeObjectURL(prev);
+      return url;
+    });
+  };
+
+  if (logo) {
+    return (
+      <div className="animate-float-slow relative inline-flex items-center justify-center rounded-2xl border border-border bg-surface/60 px-8 py-4 backdrop-blur-sm">
+        <img
+          src={logo}
+          alt="Logo do evento"
+          className="h-16 w-auto max-w-[320px] object-contain sm:h-20"
+        />
+        <div className="absolute -right-3 -bottom-3 flex gap-2">
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
+          >
+            Trocar logo
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              URL.revokeObjectURL(logo);
+              setLogo(null);
+            }}
+            className="rounded-full border border-border bg-background/80 px-3 py-1 text-xs font-semibold backdrop-blur-sm transition-colors hover:bg-secondary"
+          >
+            Remover
+          </button>
+        </div>
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={(e) => handleFile(e.target.files?.[0])}
+        />
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => inputRef.current?.click()}
+        className="animate-float-slow inline-flex items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-gold/50 bg-surface/60 px-10 py-5 backdrop-blur-sm transition-colors hover:bg-surface"
+        aria-label="Enviar logo do evento"
+      >
+        <ImagePlus className="h-6 w-6 text-gold" />
+        <div className="text-left">
+          <p className="font-display text-sm font-bold tracking-widest text-gold uppercase">
+            Sua logo aqui
+          </p>
+          <p className="text-xs text-muted-foreground">
+            Clique para enviar — 320 × 96 px recomendado
+          </p>
+        </div>
+      </button>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={(e) => handleFile(e.target.files?.[0])}
+      />
+    </>
   );
 }
 
