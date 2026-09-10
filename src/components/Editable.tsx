@@ -221,6 +221,21 @@ export function EditProvider({ children }: { children: ReactNode }) {
           <button
             type="button"
             onMouseDown={(e) => e.preventDefault()}
+            onClick={copyAll}
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-semibold shadow-lg backdrop-blur transition-colors ${
+              copied
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-background/90 text-foreground hover:bg-secondary"
+            }`}
+          >
+            <Copy className="h-3.5 w-3.5" />
+            {copied ? "Textos copiados!" : "Copiar meus textos"}
+          </button>
+        )}
+        {editing && (
+          <button
+            type="button"
+            onMouseDown={(e) => e.preventDefault()}
             onClick={reset}
             className="inline-flex items-center gap-2 rounded-full border border-border bg-background/90 px-4 py-2.5 text-xs font-semibold text-muted-foreground shadow-lg backdrop-blur transition-colors hover:bg-secondary"
           >
