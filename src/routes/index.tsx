@@ -244,26 +244,83 @@ const speakers = [
   },
 ];
 
+type SpeakerPhotoData = {
+  src: string;
+  zoom: number;
+  pos: { x: number; y: number };
+};
+
+function loadPhoto(id: string): SpeakerPhotoData | null {
+  try {
+    const raw = localStorage.getItem(`speaker-photo-${id}`);
+    return raw ? (JSON.parse(raw) as SpeakerPhotoData) : null;
+  } catch {
+    return null;
+  }
+}
+
+function persistPhoto(id: string, data: SpeakerPhotoData | null) {
+  try {
+    if (data) localStorage.setItem(`speaker-photo-${id}`, JSON.stringify(data));
+    else localStorage.removeItem(`speaker-photo-${id}`);
+  } catch {
+    /* armazenamento cheio — ignora */
+  }
+}
+
+/** Reduz a imagem para caber no armazenamento do navegador. */
+function fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      const max = 900;
+      const scale = Math.min(1, max / Math.max(img.width, img.height));
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(img.width * scale);
+      canvas.height = Math.round(img.height * scale);
+      canvas.getContext("2d")?.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL("image/jpeg", 0.85));
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
+}
+
 function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
-  const [photo, setPhoto] = useState<string | null>(null);
-  const [zoom, setZoom] = useState(1);
-  const [pos, setPos] = useState({ x: 50, y: 50 });
+  const [initialPhoto] = useState<SpeakerPhotoData | null>(() =>
+    loadPhoto(speaker.id),
+  );
+  const [photo, setPhoto] = useState<string | null>(initialPhoto?.src ?? null);
+  const [zoom, setZoom] = useState(initialPhoto?.zoom ?? 1);
+  const [pos, setPos] = useState(initialPhoto?.pos ?? { x: 50, y: 50 });
   const [adjusting, setAdjusting] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const saveTimer = useRef<number | null>(null);
   const dragRef = useRef<{ x: number; y: number; px: number; py: number } | null>(
     null,
   );
 
+  const scheduleSave = (src: string, z: number, p: { x: number; y: number }) => {
+    if (saveTimer.current) window.clearTimeout(saveTimer.current);
+    saveTimer.current = window.setTimeout(
+      () => persistPhoto(speaker.id, { src, zoom: z, pos: p }),
+      300,
+    );
+  };
+
   const handleFile = (file: File | undefined) => {
     if (!file) return;
-    const url = URL.createObjectURL(file);
-    setPhoto((prev) => {
-      if (prev) URL.revokeObjectURL(prev);
-      return url;
+    void fileToDataUrl(file).then((dataUrl) => {
+      const z = 1;
+      const p = { x: 50, y: 50 };
+      setPhoto(dataUrl);
+      setZoom(z);
+      setPos(p);
+      setAdjusting(true);
+      persistPhoto(speaker.id, { src: dataUrl, zoom: z, pos: p });
     });
-    setZoom(1);
-    setPos({ x: 50, y: 50 });
-    setAdjusting(true);
   };
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -278,10 +335,12 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
     const rect = e.currentTarget.getBoundingClientRect();
     const nx = d.px - ((e.clientX - d.x) / rect.width) * 100;
     const ny = d.py - ((e.clientY - d.y) / rect.height) * 100;
-    setPos({
+    const p = {
       x: Math.min(100, Math.max(0, nx)),
       y: Math.min(100, Math.max(0, ny)),
-    });
+    };
+    setPos(p);
+    if (photo) scheduleSave(photo, zoom, p);
   };
 
   const endDrag = () => {
@@ -365,15 +424,22 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
               max={3}
               step={0.05}
               value={zoom}
-              onChange={(e) => setZoom(Number(e.target.value))}
+              onChange={(e) => {
+                const z = Number(e.target.value);
+                setZoom(z);
+                if (photo) scheduleSave(photo, z, pos);
+              }}
               className="h-1 w-full cursor-pointer appearance-none rounded-full bg-border accent-primary"
               aria-label={`Zoom da foto de ${speaker.name}`}
             />
             <button
               type="button"
               onClick={() => {
-                setZoom(1);
-                setPos({ x: 50, y: 50 });
+                const z = 1;
+                const p = { x: 50, y: 50 };
+                setZoom(z);
+                setPos(p);
+                if (photo) scheduleSave(photo, z, p);
               }}
               className="shrink-0 rounded-full border border-border px-3 py-1 text-xs font-semibold transition-colors hover:bg-secondary"
             >
