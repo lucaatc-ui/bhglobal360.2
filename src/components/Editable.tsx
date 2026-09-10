@@ -10,6 +10,7 @@ import {
 import {
   Pencil,
   Check,
+  Copy,
   RotateCcw,
   AlignLeft,
   AlignCenter,
@@ -57,6 +58,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
   const [editing, setEditing] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
+  const [copied, setCopied] = useState(false);
   // valores ficam num ref: digitar NÃO re-renderiza (evita o cursor pular)
   const valuesRef = useRef<Values>({});
   const [version, setVersion] = useState(0);
@@ -141,6 +143,22 @@ export function EditProvider({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined") window.location.reload();
   };
 
+  const copyAll = async () => {
+    persist();
+    const entries = Object.entries(valuesRef.current)
+      .filter(([, v]) => (v?.text ?? "").trim() !== "")
+      .map(([k, v]) => `${k}: ${v.text}`)
+      .join("\n\n");
+    const payload = entries || "(nenhum texto personalizado encontrado)";
+    try {
+      await navigator.clipboard.writeText(payload);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2500);
+    } catch {
+      window.prompt("Copie seus textos abaixo:", payload);
+    }
+  };
+
   const alignBtns: { a: Align; icon: typeof AlignLeft; label: string }[] = [
     { a: "left", icon: AlignLeft, label: "Alinhar à esquerda" },
     { a: "center", icon: AlignCenter, label: "Centralizar" },
@@ -198,6 +216,21 @@ export function EditProvider({ children }: { children: ReactNode }) {
           >
             <Check className="h-3.5 w-3.5" />
             {savedFlash ? "Alterações salvas!" : "Salvar alterações"}
+          </button>
+        )}
+        {editing && (
+          <button
+            type="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={copyAll}
+            className={`inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-semibold shadow-lg backdrop-blur transition-colors ${
+              copied
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-border bg-background/90 text-foreground hover:bg-secondary"
+            }`}
+          >
+            <Copy className="h-3.5 w-3.5" />
+            {copied ? "Textos copiados!" : "Copiar meus textos"}
           </button>
         )}
         {editing && (
