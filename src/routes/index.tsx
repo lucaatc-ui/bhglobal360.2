@@ -100,17 +100,6 @@ function Hero() {
           </Ed>
         </div>
 
-        {/* Globo interativo */}
-        <div className="relative order-1 lg:order-2">
-          <Globe className="mx-auto aspect-square w-full max-w-[520px]" />
-          <Ed
-            as="p"
-            id="hero.globe"
-            className="mt-2 block text-center text-xs tracking-widest text-muted-foreground uppercase"
-          >
-            Arraste para explorar o globo
-          </Ed>
-        </div>
       </div>
     </section>
   );
