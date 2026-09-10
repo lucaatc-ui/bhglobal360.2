@@ -10,6 +10,7 @@ import {
 import {
   Pencil,
   Check,
+  Copy,
   RotateCcw,
   AlignLeft,
   AlignCenter,
