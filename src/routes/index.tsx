@@ -335,10 +335,12 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
     const rect = e.currentTarget.getBoundingClientRect();
     const nx = d.px - ((e.clientX - d.x) / rect.width) * 100;
     const ny = d.py - ((e.clientY - d.y) / rect.height) * 100;
-    setPos({
+    const p = {
       x: Math.min(100, Math.max(0, nx)),
       y: Math.min(100, Math.max(0, ny)),
-    });
+    };
+    setPos(p);
+    if (photo) scheduleSave(photo, zoom, p);
   };
 
   const endDrag = () => {
@@ -422,15 +424,22 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
               max={3}
               step={0.05}
               value={zoom}
-              onChange={(e) => setZoom(Number(e.target.value))}
+              onChange={(e) => {
+                const z = Number(e.target.value);
+                setZoom(z);
+                if (photo) scheduleSave(photo, z, pos);
+              }}
               className="h-1 w-full cursor-pointer appearance-none rounded-full bg-border accent-primary"
               aria-label={`Zoom da foto de ${speaker.name}`}
             />
             <button
               type="button"
               onClick={() => {
-                setZoom(1);
-                setPos({ x: 50, y: 50 });
+                const z = 1;
+                const p = { x: 50, y: 50 };
+                setZoom(z);
+                setPos(p);
+                if (photo) scheduleSave(photo, z, p);
               }}
               className="shrink-0 rounded-full border border-border px-3 py-1 text-xs font-semibold transition-colors hover:bg-secondary"
             >
