@@ -67,7 +67,7 @@ function Hero() {
             palestras, conexões e oportunidades que atravessam continentes.
           </Ed>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-gold" />
               <Ed id="hero.date">10 de outubro de 2026</Ed>
@@ -78,7 +78,7 @@ function Hero() {
             </span>
           </div>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <a
               href="#ingressos"
               className="animate-pulse-ring font-display inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-bold text-cta-foreground transition-transform hover:scale-105"
