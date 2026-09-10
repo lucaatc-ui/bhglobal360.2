@@ -560,11 +560,7 @@ function Tickets() {
               style={t.highlight ? { boxShadow: "var(--glow-gold)" } : undefined}
             >
               <span
-                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold ${
-                  t.highlight
-                    ? "bg-primary text-primary-foreground"
-                    : "border border-border bg-background text-muted-foreground"
-                }`}
+                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold bg-primary text-primary-foreground`}
               >
                 <Ed id={`tickets.${t.id}.tag`}>{t.tag}</Ed>
               </span>
