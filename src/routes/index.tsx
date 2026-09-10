@@ -14,7 +14,7 @@ import {
   Camera,
 } from "lucide-react";
 import { useRef, useState } from "react";
-import { Globe } from "@/components/Globe";
+
 import { Ed, EditProvider } from "@/components/Editable";
 
 export const Route = createFileRoute("/")({
@@ -47,9 +47,8 @@ function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{ background: "var(--gradient-hero)" }}
       />
-      <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 pt-14 pb-20 lg:grid-cols-2 lg:gap-6 lg:pt-20">
-        {/* Coluna de texto */}
-        <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
+      <div className="relative mx-auto max-w-4xl px-6 pt-20 pb-24 text-center">
+        <div className="flex flex-col items-center text-center">
 
 
           <h1 className="font-display mt-8 text-5xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-6xl">
@@ -68,7 +67,7 @@ function Hero() {
             palestras, conexões e oportunidades que atravessam continentes.
           </Ed>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
               <CalendarDays className="h-4 w-4 text-gold" />
               <Ed id="hero.date">10 de outubro de 2026</Ed>
@@ -79,7 +78,7 @@ function Hero() {
             </span>
           </div>
 
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <a
               href="#ingressos"
               className="animate-pulse-ring font-display inline-flex items-center gap-2 rounded-full bg-cta px-8 py-4 text-base font-bold text-cta-foreground transition-transform hover:scale-105"
@@ -100,17 +99,6 @@ function Hero() {
           </Ed>
         </div>
 
-        {/* Globo interativo */}
-        <div className="relative order-1 lg:order-2">
-          <Globe className="mx-auto aspect-square w-full max-w-[520px]" />
-          <Ed
-            as="p"
-            id="hero.globe"
-            className="mt-2 block text-center text-xs tracking-widest text-muted-foreground uppercase"
-          >
-            Arraste para explorar o globo
-          </Ed>
-        </div>
       </div>
     </section>
   );
