@@ -141,6 +141,22 @@ export function EditProvider({ children }: { children: ReactNode }) {
     if (typeof window !== "undefined") window.location.reload();
   };
 
+  const copyAll = async () => {
+    persist();
+    const entries = Object.entries(valuesRef.current)
+      .filter(([, v]) => (v?.text ?? "").trim() !== "")
+      .map(([k, v]) => `${k}: ${v.text}`)
+      .join("\n\n");
+    const payload = entries || "(nenhum texto personalizado encontrado)";
+    try {
+      await navigator.clipboard.writeText(payload);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2500);
+    } catch {
+      window.prompt("Copie seus textos abaixo:", payload);
+    }
+  };
+
   const alignBtns: { a: Align; icon: typeof AlignLeft; label: string }[] = [
     { a: "left", icon: AlignLeft, label: "Alinhar à esquerda" },
     { a: "center", icon: AlignCenter, label: "Centralizar" },
