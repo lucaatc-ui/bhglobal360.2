@@ -243,7 +243,7 @@ const speakers = [
     name: "Ana Freitas",
     role: "Palestrante especial",
     topic: "Keynote",
-    bio: "Estrategista de inovação e investidora-anjo, Ana atua no ecossistema de startups há mais de uma década. Sua palestra aborda tendências de tecnologia e como antecipar os movimentos que vão moldar a próxima década.",
+    bio: "À frente da Ana Freitas Global Mobility, coordena uma rede de mais de 170 parceiros em cerca de 40 países e assessora empresários, investidores, executivos e famílias na construção de estratégias internacionais que integram imigração, negócios, patrimônio e projetos de vida.",
   },
 ];
 
