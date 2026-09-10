@@ -52,9 +52,9 @@ function Hero() {
 
 
           <h1 className="font-display mt-8 text-5xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-6xl">
-            <Ed id="hero.title1">O futuro dos negócios</Ed>{" "}
-            <Ed id="hero.title2" className="text-gold">
-              não tem fronteiras.
+            <Ed id="hero.title1">
+              O poder de levar sua família e patrimônio para fora do Brasil é
+              crucial nos tempos de hoje.
             </Ed>
           </h1>
 
@@ -63,8 +63,9 @@ function Hero() {
             id="hero.sub"
             className="mt-6 max-w-xl text-lg text-muted-foreground"
           >
-            Um dia inteiro de imersão reunindo líderes e inovadores para
-            palestras, conexões e oportunidades que atravessam continentes.
+            Participe de um dos primeiros eventos em Belo Horizonte sobre
+            holdings, offshores, acesso aos melhores bancos do exterior, vistos
+            e passaportes com profissionais renomados para tirar suas dúvidas.
           </Ed>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
@@ -159,10 +160,9 @@ function About() {
         id="about.body"
         className="mt-6 text-lg leading-relaxed text-muted-foreground"
       >
-        O Horizonte Global Summit reúne founders, investidores e executivos para
-        discutir tecnologia, expansão internacional e as tendências que vão
-        moldar a próxima década — tudo em um único dia de imersão, com brunch
-        completo e happy hour com chopp artesanal para fechar com chave de ouro.
+        {
+          "A inflação continuará crescendo, as empresas pagarão mais impostos e o rombo que o atual governo fez continuará aí…\n\n\nMas é possível com estratégia e inteligência se proteger do Brasil.\n\n\nSeja através da internacionalização de patrimônio, enviando para os bancos mais antigos e seguros do mundo.\n\nComo também se preparando para se mudar daqui com os melhores vistos e passaportes existentes.\n\nO Brasil não é e não será seguro politicamente e economicamente.\n\nOs inteligentes estarão preparados para o pior com a estratégia pronta. Já com grande parte do patrimônio lá fora longe da inflação e com segurança jurídica."
+        }
       </Ed>
     </section>
   );
@@ -170,13 +170,13 @@ function About() {
 
 const agenda = [
   { id: "a1", time: "09h00", title: "Credenciamento e brunch completo de boas-vindas" },
-  { id: "a2", time: "10h30", title: "Keynote de abertura: O mundo em 2030" },
-  { id: "a3", time: "12h00", title: "Adler Martins — palestra especial" },
-  { id: "a4", time: "14h00", title: "Ana Freitas — palestra especial" },
-  { id: "a8", time: "15h30", title: "Palestra especial — a definir" },
-  { id: "a5", time: "16h00", title: "Painel: Expansão internacional sem medo" },
-  { id: "a6", time: "17h30", title: "Rodada de networking global" },
-  { id: "a7", time: "19h00", title: "Happy Hour com chopp artesanal" },
+  { id: "a2", time: "11h30", title: "Abertura: O que o Brasil se tornou na economia mundial de hoje?" },
+  { id: "a3", time: "12h00", title: "Ana Freitas — Mobilidade Global: a estratégia que conecta patrimônio, negócios e liberdade internacional" },
+  { id: "a4", time: "13h00", title: "Tira dúvidas sobre a palestra Mobilidade Global." },
+  { id: "a5", time: "13h40", title: "Pausa de 20 minutos" },
+  { id: "a6", time: "14h00", title: "Adler Martins - As novas estratégias de proteção de patrimonial para empresários e famílias - Imposto de Dividendos, Exportações, Contas Bancárias Estrangeiras" },
+  { id: "a7", time: "15h00", title: "Tira dúvidas com Adler Martins" },
+  { id: "a8", time: "16h00", title: "Happy Hour com chopp artesanal e acesso aos palestrantes" },
 ];
 
 function Agenda() {
@@ -236,7 +236,7 @@ const speakers = [
     name: "Adler Martins",
     role: "Palestrante especial",
     topic: "Keynote",
-    bio: "Empreendedor e referência em expansão internacional, Adler já conduziu operações em mais de 15 países. Em seu keynote, compartilha frameworks práticos para escalar negócios além das fronteiras brasileiras.",
+    bio: "Responsável por assessorar grandes grupos internacionais com atuação no Brasil, incluindo Amazon Mining, Projeto Juruena (ouro), Grupo Primeco (nióbio) e as empresas indianas OYO e Byjus.\n\nÉ referência em internacionalização de empresas, planejamento tributário, abertura de offshore e negociação de contratos de exportação.",
   },
   {
     id: "ana",
