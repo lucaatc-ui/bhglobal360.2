@@ -3,7 +3,7 @@ import {
   CalendarDays,
   MapPin,
   ArrowRight,
-  ImagePlus,
+  
   Mic2,
   Ticket,
   Sun,
@@ -50,7 +50,7 @@ function Hero() {
       <div className="relative mx-auto grid max-w-7xl items-center gap-10 px-6 pt-14 pb-20 lg:grid-cols-2 lg:gap-6 lg:pt-20">
         {/* Coluna de texto */}
         <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
-          <LogoSlot />
+
 
           <h1 className="font-display mt-8 text-5xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-6xl">
             <Ed id="hero.title1">O futuro dos negócios</Ed>{" "}
