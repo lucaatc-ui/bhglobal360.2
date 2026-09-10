@@ -57,6 +57,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
   const [editing, setEditing] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
+  const [copied, setCopied] = useState(false);
   // valores ficam num ref: digitar NÃO re-renderiza (evita o cursor pular)
   const valuesRef = useRef<Values>({});
   const [version, setVersion] = useState(0);
