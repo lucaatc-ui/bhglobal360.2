@@ -16,6 +16,7 @@ import {
   AlignCenter,
   AlignRight,
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const STORAGE_KEY = "landing-copy-v1";
 
@@ -59,12 +60,13 @@ export function EditProvider({ children }: { children: ReactNode }) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [saveError, setSaveError] = useState(false);
   // valores ficam num ref: digitar NÃO re-renderiza (evita o cursor pular)
   const valuesRef = useRef<Values>({});
   const [version, setVersion] = useState(0);
   const saveTimer = useRef<number | null>(null);
 
-  const persist = useCallback(() => {
+  const persistLocal = useCallback(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(valuesRef.current));
     } catch {
@@ -72,40 +74,76 @@ export function EditProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const persist = useCallback(async () => {
+    persistLocal();
+    const { error } = await supabase
+      .from("page_content")
+      .update({ content: valuesRef.current, updated_at: new Date().toISOString() })
+      .eq("id", "main");
+    if (error) throw error;
+  }, [persistLocal]);
+
   const schedulePersist = useCallback(() => {
     if (saveTimer.current) window.clearTimeout(saveTimer.current);
-    saveTimer.current = window.setTimeout(persist, 300);
-  }, [persist]);
+    persistLocal();
+    saveTimer.current = window.setTimeout(() => {
+      void persist().catch(() => setSaveError(true));
+    }, 500);
+  }, [persist, persistLocal]);
 
-  const saveNow = useCallback(() => {
+  const saveNow = useCallback(async () => {
     if (saveTimer.current) window.clearTimeout(saveTimer.current);
-    persist();
-    setSavedFlash(true);
-    window.setTimeout(() => setSavedFlash(false), 2000);
+    try {
+      await persist();
+      setSaveError(false);
+      setSavedFlash(true);
+      window.setTimeout(() => setSavedFlash(false), 2000);
+    } catch {
+      setSaveError(true);
+    }
   }, [persist]);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        valuesRef.current = normalize(JSON.parse(raw));
-        setVersion((v) => v + 1);
+    const load = async () => {
+      let localValues: Values = {};
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) localValues = normalize(JSON.parse(raw));
+      } catch {
+        /* ignore */
       }
-    } catch {
-      /* ignore */
-    }
-  }, []);
+
+      const { data, error } = await supabase
+        .from("page_content")
+        .select("content")
+        .eq("id", "main")
+        .maybeSingle();
+      const cloudValues = normalize(data?.content);
+      const hasCloudValues = Object.keys(cloudValues).length > 0;
+      const hasLocalValues = Object.keys(localValues).length > 0;
+
+      if (!error && hasCloudValues) {
+        valuesRef.current = cloudValues;
+        persistLocal();
+      } else if (hasLocalValues) {
+        valuesRef.current = localValues;
+        if (!error) void persist().catch(() => setSaveError(true));
+      }
+      setVersion((v) => v + 1);
+    };
+    void load();
+  }, [persist, persistLocal]);
 
   // salva ao sair/recarregar a página
   useEffect(() => {
-    const handler = () => persist();
+    const handler = () => persistLocal();
     window.addEventListener("beforeunload", handler);
     document.addEventListener("visibilitychange", handler);
     return () => {
       window.removeEventListener("beforeunload", handler);
       document.removeEventListener("visibilitychange", handler);
     };
-  }, [persist]);
+  }, [persistLocal]);
 
   const setText = useCallback(
     (id: string, value: string) => {
@@ -124,7 +162,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
         ...valuesRef.current,
         [id]: { ...valuesRef.current[id], align },
       };
-      persist();
+      void persist().catch(() => setSaveError(true));
       setVersion((v) => v + 1);
     },
     [persist],
@@ -144,7 +182,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
   };
 
   const copyAll = async () => {
-    persist();
+    await persist().catch(() => setSaveError(true));
     const entries = Object.entries(valuesRef.current)
       .filter(([, v]) => (v?.text ?? "").trim() !== "")
       .map(([k, v]) => `${k}: ${v.text}`)
@@ -215,7 +253,11 @@ export function EditProvider({ children }: { children: ReactNode }) {
             }`}
           >
             <Check className="h-3.5 w-3.5" />
-            {savedFlash ? "Alterações salvas!" : "Salvar alterações"}
+            {saveError
+              ? "Erro ao salvar — tente novamente"
+              : savedFlash
+                ? "Alterações salvas!"
+                : "Salvar alterações"}
           </button>
         )}
         {editing && (
@@ -248,7 +290,7 @@ export function EditProvider({ children }: { children: ReactNode }) {
           type="button"
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => {
-            if (editing) saveNow();
+            if (editing) void saveNow();
             setEditing((v) => !v);
             setActiveId(null);
           }}
