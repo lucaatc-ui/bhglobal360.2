@@ -606,7 +606,9 @@ function Tickets() {
                 </span>
               ) : (
                 <a
-                  href="#"
+                  href="https://pay.kiwify.com.br/IQiYP8A"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition-transform hover:scale-105 bg-cta text-cta-foreground"
                 >
                   <Ed id={`tickets.${t.id}.cta`}>Comprar agora</Ed>
