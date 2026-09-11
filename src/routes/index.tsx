@@ -557,13 +557,18 @@ function Tickets() {
           {tickets.map((t) => (
             <div
               key={t.id}
-              className={`relative flex flex-col rounded-3xl border p-8 transition-transform hover:-translate-y-1 ${
-                t.highlight ? "border-gold bg-card" : "border-border bg-card/60"
+              className={`relative flex flex-col rounded-3xl border p-8 transition-transform ${
+                t.highlight
+                  ? "border-border bg-card/40 opacity-60"
+                  : "border-border bg-card/60 hover:-translate-y-1"
               }`}
-              style={t.highlight ? { boxShadow: "var(--glow-gold)" } : undefined}
             >
               <span
-                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold bg-primary text-primary-foreground`}
+                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold ${
+                  t.highlight
+                    ? "bg-muted text-muted-foreground"
+                    : "bg-primary text-primary-foreground"
+                }`}
               >
                 <Ed id={`tickets.${t.id}.tag`}>{t.tag}</Ed>
               </span>
@@ -595,16 +600,18 @@ function Tickets() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="#"
-                className={`font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition-transform hover:scale-105 ${
-                  t.highlight
-                    ? "bg-cta text-cta-foreground"
-                    : "bg-cta text-cta-foreground"
-                }`}
-              >
-                <Ed id={`tickets.${t.id}.cta`}>Comprar agora</Ed>
-              </a>
+              {t.highlight ? (
+                <span className="font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold bg-muted text-muted-foreground cursor-not-allowed">
+                  <Ed id={`tickets.${t.id}.cta`}>Em breve</Ed>
+                </span>
+              ) : (
+                <a
+                  href="#"
+                  className="font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition-transform hover:scale-105 bg-cta text-cta-foreground"
+                >
+                  <Ed id={`tickets.${t.id}.cta`}>Comprar agora</Ed>
+                </a>
+              )}
             </div>
           ))}
         </div>
