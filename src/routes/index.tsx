@@ -497,7 +497,7 @@ function Speakers() {
             <Ed id="speakers.title">Quem vai subir ao palco</Ed>
           </h2>
           <Ed as="p" id="speakers.sub" className="mt-4 text-muted-foreground">
-            Dois palestrantes especiais para um dia inesquecível
+            Três palestrantes especiais para um dia inesquecível
           </Ed>
         </div>
 
