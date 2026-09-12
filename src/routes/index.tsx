@@ -107,7 +107,7 @@ function Hero() {
 
 const stats = [
   { id: "s1", icon: Ticket, value: "70", label: "ingressos disponíveis" },
-  { id: "s2", icon: Mic2, value: "2", label: "palestrantes especiais" },
+  { id: "s2", icon: Mic2, value: "3", label: "palestrantes especiais" },
   { id: "s3", icon: Sun, value: "1", label: "dia inteiro de imersão" },
   { id: "s4", icon: Coffee, value: "Brunch", label: "completo incluso" },
   { id: "s5", icon: Beer, value: "Happy Hour", label: "com chopp artesanal" },
