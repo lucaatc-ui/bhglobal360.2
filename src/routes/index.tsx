@@ -107,7 +107,7 @@ function Hero() {
 
 const stats = [
   { id: "s1", icon: Ticket, value: "70", label: "ingressos disponíveis" },
-  { id: "s2", icon: Mic2, value: "2", label: "palestrantes especiais" },
+  { id: "s2", icon: Mic2, value: "3", label: "palestrantes especiais" },
   { id: "s3", icon: Sun, value: "1", label: "dia inteiro de imersão" },
   { id: "s4", icon: Coffee, value: "Brunch", label: "completo incluso" },
   { id: "s5", icon: Beer, value: "Happy Hour", label: "com chopp artesanal" },
@@ -244,6 +244,13 @@ const speakers = [
     role: "Palestrante especial",
     topic: "Keynote",
     bio: "À frente da Ana Freitas Global Mobility, coordena uma rede de mais de 170 parceiros em cerca de 40 países e assessora empresários, investidores, executivos e famílias na construção de estratégias internacionais que integram imigração, negócios, patrimônio e projetos de vida.",
+  },
+  {
+    id: "bruno",
+    name: "Bruno Vasconcelos",
+    role: "Palestrante especial",
+    topic: "Keynote",
+    bio: "",
   },
 ];
 
@@ -490,7 +497,7 @@ function Speakers() {
             <Ed id="speakers.title">Quem vai subir ao palco</Ed>
           </h2>
           <Ed as="p" id="speakers.sub" className="mt-4 text-muted-foreground">
-            Dois palestrantes especiais para um dia inesquecível
+            Três palestrantes especiais para um dia inesquecível
           </Ed>
         </div>
 
