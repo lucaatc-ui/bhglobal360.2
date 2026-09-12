@@ -245,6 +245,13 @@ const speakers = [
     topic: "Keynote",
     bio: "À frente da Ana Freitas Global Mobility, coordena uma rede de mais de 170 parceiros em cerca de 40 países e assessora empresários, investidores, executivos e famílias na construção de estratégias internacionais que integram imigração, negócios, patrimônio e projetos de vida.",
   },
+  {
+    id: "bruno",
+    name: "Bruno Vasconcelos",
+    role: "Palestrante especial",
+    topic: "Keynote",
+    bio: "",
+  },
 ];
 
 type SpeakerPhotoData = {
