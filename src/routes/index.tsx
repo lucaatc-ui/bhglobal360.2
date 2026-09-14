@@ -16,6 +16,7 @@ import {
 import { useRef, useState } from "react";
 
 import { Ed, EditProvider } from "@/components/Editable";
+import { useEditMode } from "@/lib/edit-mode";
 import adlerPhoto from "@/assets/adler-martins.jpg.asset.json";
 import anaPhoto from "@/assets/ana-freitas.jpg.asset.json";
 import brunoPhoto from "@/assets/bruno-vasconcelos.jpg.asset.json";
@@ -305,6 +306,7 @@ function fileToDataUrl(file: File): Promise<string> {
 }
 
 function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
+  const editMode = useEditMode();
   const [initialPhoto] = useState<SpeakerPhotoData | null>(() =>
     loadPhoto(speaker.id),
   );
@@ -384,7 +386,7 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
             role="img"
             aria-label={`Foto de ${speaker.name}`}
           />
-        ) : (
+        ) : editMode ? (
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
@@ -399,11 +401,15 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
               Clique para enviar a foto de {speaker.name.split(" ")[0]}
             </span>
           </button>
+        ) : (
+          <div className="flex aspect-square w-full items-center justify-center bg-surface/60 text-muted-foreground">
+            <Camera className="h-10 w-10" />
+          </div>
         )}
         <span className="absolute bottom-3 left-3 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
           <Ed id={`speakers.${speaker.id}.topic`}>{speaker.topic}</Ed>
         </span>
-        {photo && (
+        {photo && editMode && (
           <div className="absolute right-3 bottom-3 flex gap-2">
             <button
               type="button"

@@ -17,6 +17,7 @@ import {
   AlignRight,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useEditMode } from "@/lib/edit-mode";
 
 const STORAGE_KEY = "landing-copy-v1";
 
@@ -56,7 +57,9 @@ function normalize(raw: unknown): Values {
 }
 
 export function EditProvider({ children }: { children: ReactNode }) {
-  const [editing, setEditing] = useState(false);
+  const canEdit = useEditMode();
+  const [editingRaw, setEditing] = useState(false);
+  const editing = canEdit && editingRaw;
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -240,7 +243,9 @@ export function EditProvider({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <div className="fixed right-5 bottom-5 z-50 flex items-center gap-2 print:hidden">
+      <div
+        className={`fixed right-5 bottom-5 z-50 items-center gap-2 print:hidden ${canEdit ? "flex" : "hidden"}`}
+      >
         {editing && (
           <button
             type="button"
