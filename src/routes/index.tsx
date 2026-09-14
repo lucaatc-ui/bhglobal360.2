@@ -16,6 +16,7 @@ import {
 import { useRef, useState } from "react";
 
 import { Ed, EditProvider } from "@/components/Editable";
+import { useEditMode } from "@/lib/edit-mode";
 import adlerPhoto from "@/assets/adler-martins.jpg.asset.json";
 import anaPhoto from "@/assets/ana-freitas.jpg.asset.json";
 import brunoPhoto from "@/assets/bruno-vasconcelos.jpg.asset.json";
