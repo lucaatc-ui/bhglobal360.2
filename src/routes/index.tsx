@@ -305,6 +305,7 @@ function fileToDataUrl(file: File): Promise<string> {
 }
 
 function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
+  const editMode = useEditMode();
   const [initialPhoto] = useState<SpeakerPhotoData | null>(() =>
     loadPhoto(speaker.id),
   );
