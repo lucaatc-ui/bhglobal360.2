@@ -17,6 +17,7 @@ import {
   AlignRight,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { useEditMode } from "@/lib/edit-mode";
 
 const STORAGE_KEY = "landing-copy-v1";
 
