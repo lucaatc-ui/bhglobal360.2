@@ -427,15 +427,17 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
             </button>
           </div>
         )}
-        <input
-          ref={inputRef}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={(e) => handleFile(e.target.files?.[0])}
-        />
+        {editMode && (
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => handleFile(e.target.files?.[0])}
+          />
+        )}
       </div>
-      {photo && adjusting && (
+      {photo && editMode && adjusting && (
         <div className="border-t border-border bg-surface/50 px-5 py-4 text-left">
           <p className="text-xs text-muted-foreground">
             Arraste a foto para reposicionar e use o controle para aproximar.
