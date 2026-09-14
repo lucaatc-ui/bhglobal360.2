@@ -255,7 +255,7 @@ const speakers = [
     name: "Bruno Vasconcelos",
     role: "Palestrante especial",
     topic: "Keynote",
-    bio: "",
+    bio: "Bruno Vasconcelos é empresário e especialista em experiência do cliente, fundador e CEO da Seu Cliente Oculto, a maior plataforma do setor na América Latina. Ganhou projeção nacional ao conquistar investimento no programa Shark Tank Brasil.",
     photo: brunoPhoto.url,
   },
 ];
