@@ -308,7 +308,9 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
   const [initialPhoto] = useState<SpeakerPhotoData | null>(() =>
     loadPhoto(speaker.id),
   );
-  const [photo, setPhoto] = useState<string | null>(initialPhoto?.src ?? null);
+  const [photo, setPhoto] = useState<string | null>(
+    initialPhoto?.src ?? speaker.photo ?? null,
+  );
   const [zoom, setZoom] = useState(initialPhoto?.zoom ?? 1);
   const [pos, setPos] = useState(initialPhoto?.pos ?? { x: 50, y: 50 });
   const [adjusting, setAdjusting] = useState(false);
