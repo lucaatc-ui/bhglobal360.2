@@ -408,7 +408,7 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
         <span className="absolute bottom-3 left-3 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
           <Ed id={`speakers.${speaker.id}.topic`}>{speaker.topic}</Ed>
         </span>
-        {photo && (
+        {photo && editMode && (
           <div className="absolute right-3 bottom-3 flex gap-2">
             <button
               type="button"
