@@ -56,7 +56,9 @@ function normalize(raw: unknown): Values {
 }
 
 export function EditProvider({ children }: { children: ReactNode }) {
-  const [editing, setEditing] = useState(false);
+  const canEdit = useEditMode();
+  const [editingRaw, setEditing] = useState(false);
+  const editing = canEdit && editingRaw;
   const [activeId, setActiveId] = useState<string | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
   const [copied, setCopied] = useState(false);
