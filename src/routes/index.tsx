@@ -16,6 +16,9 @@ import {
 import { useRef, useState } from "react";
 
 import { Ed, EditProvider } from "@/components/Editable";
+import adlerPhoto from "@/assets/adler-martins.jpg.asset.json";
+import anaPhoto from "@/assets/ana-freitas.jpg.asset.json";
+import brunoPhoto from "@/assets/bruno-vasconcelos.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -236,21 +239,14 @@ const speakers = [
     name: "Adler Martins",
     role: "Palestrante especial",
     topic: "Keynote",
-    bio: "Responsável por assessorar grandes grupos internacionais com atuação no Brasil, incluindo Amazon Mining, Projeto Juruena (ouro), Grupo Primeco (nióbio) e as empresas indianas OYO e Byjus.\n\nÉ referência em internacionalização de empresas, planejamento tributário, abertura de offshore e negociação de contratos de exportação.",
-  },
-  {
-    id: "ana",
-    name: "Ana Freitas",
-    role: "Palestrante especial",
-    topic: "Keynote",
-    bio: "À frente da Ana Freitas Global Mobility, coordena uma rede de mais de 170 parceiros em cerca de 40 países e assessora empresários, investidores, executivos e famílias na construção de estratégias internacionais que integram imigração, negócios, patrimônio e projetos de vida.",
-  },
-  {
+    photo: adlerPhoto.url,
+...
     id: "bruno",
     name: "Bruno Vasconcelos",
     role: "Palestrante especial",
     topic: "Keynote",
     bio: "",
+    photo: brunoPhoto.url,
   },
 ];
 
