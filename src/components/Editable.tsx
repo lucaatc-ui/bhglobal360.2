@@ -243,7 +243,9 @@ export function EditProvider({ children }: { children: ReactNode }) {
         </div>
       )}
 
-      <div className="fixed right-5 bottom-5 z-50 flex items-center gap-2 print:hidden">
+      <div
+        className={`fixed right-5 bottom-5 z-50 items-center gap-2 print:hidden ${canEdit ? "flex" : "hidden"}`}
+      >
         {editing && (
           <button
             type="button"
