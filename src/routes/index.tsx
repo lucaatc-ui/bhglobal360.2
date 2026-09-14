@@ -177,6 +177,7 @@ const agenda = [
   { id: "a2", time: "11h30", title: "Palestra Bruno Vasconcelos - Empreender no Brasil atual" },
   { id: "a3", time: "12h00", title: "Ana Freitas — Mobilidade Global: a estratégia que conecta patrimônio, negócios e liberdade internacional" },
   { id: "a4", time: "13h00", title: "Tira dúvidas sobre a palestra Mobilidade Global." },
+  { id: "a4b", time: "13h20", title: "Novo módulo — a definir" },
   { id: "a5", time: "13h40", title: "Pausa de 20 minutos" },
   { id: "a6", time: "14h00", title: "Adler Martins - As novas estratégias de proteção de patrimonial para empresários e famílias - Imposto de Dividendos, Exportações, Contas Bancárias Estrangeiras" },
   { id: "a7", time: "15h00", title: "Tira dúvidas com Adler Martins" },
