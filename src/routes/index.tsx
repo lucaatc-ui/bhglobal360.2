@@ -385,7 +385,7 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
             role="img"
             aria-label={`Foto de ${speaker.name}`}
           />
-        ) : (
+        ) : editMode ? (
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
@@ -400,6 +400,10 @@ function SpeakerCard({ speaker }: { speaker: (typeof speakers)[number] }) {
               Clique para enviar a foto de {speaker.name.split(" ")[0]}
             </span>
           </button>
+        ) : (
+          <div className="flex aspect-square w-full items-center justify-center bg-surface/60 text-muted-foreground">
+            <Camera className="h-10 w-10" />
+          </div>
         )}
         <span className="absolute bottom-3 left-3 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
           <Ed id={`speakers.${speaker.id}.topic`}>{speaker.topic}</Ed>
