@@ -239,8 +239,18 @@ const speakers = [
     name: "Adler Martins",
     role: "Palestrante especial",
     topic: "Keynote",
+    bio: "Responsável por assessorar grandes grupos internacionais com atuação no Brasil, incluindo Amazon Mining, Projeto Juruena (ouro), Grupo Primeco (nióbio) e as empresas indianas OYO e Byjus.\n\nÉ referência em internacionalização de empresas, planejamento tributário, abertura de offshore e negociação de contratos de exportação.",
     photo: adlerPhoto.url,
-...
+  },
+  {
+    id: "ana",
+    name: "Ana Freitas",
+    role: "Palestrante especial",
+    topic: "Keynote",
+    bio: "À frente da Ana Freitas Global Mobility, coordena uma rede de mais de 170 parceiros em cerca de 40 países e assessora empresários, investidores, executivos e famílias na construção de estratégias internacionais que integram imigração, negócios, patrimônio e projetos de vida.",
+    photo: anaPhoto.url,
+  },
+  {
     id: "bruno",
     name: "Bruno Vasconcelos",
     role: "Palestrante especial",
