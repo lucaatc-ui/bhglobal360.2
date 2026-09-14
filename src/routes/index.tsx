@@ -174,7 +174,7 @@ function About() {
 
 const agenda = [
   { id: "a1", time: "09h00", title: "Credenciamento e brunch completo de boas-vindas" },
-  { id: "a2", time: "11h30", title: "Abertura: O que o Brasil se tornou na economia mundial de hoje?" },
+  { id: "a2", time: "11h30", title: "Palestra Bruno Vasconcelos - Empreender no Brasil atual" },
   { id: "a3", time: "12h00", title: "Ana Freitas — Mobilidade Global: a estratégia que conecta patrimônio, negócios e liberdade internacional" },
   { id: "a4", time: "13h00", title: "Tira dúvidas sobre a palestra Mobilidade Global." },
   { id: "a5", time: "13h40", title: "Pausa de 20 minutos" },
