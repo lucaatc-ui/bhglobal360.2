@@ -199,7 +199,7 @@ function Agenda() {
             <Ed id="agenda.title">Um dia, uma jornada completa</Ed>
           </h2>
           <Ed as="p" id="agenda.sub" className="mt-4 text-muted-foreground">
-            10 de outubro de 2026 · Belo Horizonte, MG · Programação sujeita a ajustes
+            17 de outubro de 2026 · Belo Horizonte, MG · Programação sujeita a ajustes
           </Ed>
         </div>
 
