@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "b29946ee-e17c-4b1b-b438-8f2539597bb3",
+  "asset_id": "853bf555-a6f6-4e40-a350-1a43f0f2ebb2",
   "project_id": "cab8516c-a6ea-4a20-b562-f34cda9f7041",
-  "url": "/__l5e/assets-v1/b29946ee-e17c-4b1b-b438-8f2539597bb3/bruno-vasconcelos.jpg",
-  "r2_key": "a/v1/cab8516c-a6ea-4a20-b562-f34cda9f7041/b29946ee-e17c-4b1b-b438-8f2539597bb3/bruno-vasconcelos.jpg",
-  "original_filename": "bruno-vasconcelos.jpg",
-  "size": 8660,
-  "content_type": "image/jpeg",
-  "created_at": "2026-09-14T11:24:49Z"
+  "url": "/__l5e/assets-v1/853bf555-a6f6-4e40-a350-1a43f0f2ebb2/bruno-vasconcelos.png",
+  "r2_key": "a/v1/cab8516c-a6ea-4a20-b562-f34cda9f7041/853bf555-a6f6-4e40-a350-1a43f0f2ebb2/bruno-vasconcelos.png",
+  "original_filename": "bruno-vasconcelos.png",
+  "size": 1547504,
+  "content_type": "image/png",
+  "created_at": "2026-09-16T01:43:12Z"
 }
