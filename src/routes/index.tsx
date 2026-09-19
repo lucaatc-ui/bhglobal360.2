@@ -552,7 +552,7 @@ const tickets = [
       "Certificado digital",
     ],
     highlight: true,
-    tag: "Em breve",
+    tag: "A partir de 13/10",
   },
 ];
 
@@ -625,7 +625,7 @@ function Tickets() {
               </ul>
               {t.highlight ? (
                 <span className="font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold bg-muted text-muted-foreground cursor-not-allowed">
-                  <Ed id={`tickets.${t.id}.cta`}>Em breve</Ed>
+                  <Ed id={`tickets.${t.id}.cta`}>A partir de 13/10</Ed>
                 </span>
               ) : (
                 <a
