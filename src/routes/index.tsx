@@ -67,7 +67,7 @@ function Hero() {
             />
           </div>
 
-          <h1 className="font-display mt-5 text-4xl leading-[1.05] font-extrabold tracking-tight text-balance sm:mt-7 sm:text-5xl">
+          <h1 className="font-display mt-0 text-4xl leading-[1.05] font-extrabold tracking-tight text-balance sm:mt-0 sm:text-5xl">
             <Ed id="hero.title1">
               O poder de levar sua família e patrimônio para fora do Brasil é
               crucial nos tempos de hoje.
