@@ -81,6 +81,10 @@ function Hero() {
               <MapPin className="h-4 w-4 text-gold" />
               <Ed id="hero.place">Belo Horizonte · MG</Ed>
             </span>
+            <span className="inline-flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-gold" />
+              <Ed id="hero.address">Av. Bias Fortes, 803 - Pilotis - Lourdes</Ed>
+            </span>
           </div>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
