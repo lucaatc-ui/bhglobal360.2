@@ -54,7 +54,7 @@ function Hero() {
       />
       <div className="relative mx-auto max-w-4xl px-6 pt-20 pb-24 text-center">
         <div className="flex flex-col items-center text-center">
-          <div className="speaker-hero-stage relative h-72 w-full max-w-xl sm:h-80" aria-hidden="true">
+          <div className="speaker-hero-stage relative h-60 w-full max-w-xl overflow-hidden sm:h-72" aria-hidden="true">
             <span className="speaker-hero-line speaker-hero-line-left" />
             <span className="speaker-hero-line speaker-hero-line-right" />
             <span className="speaker-hero-spark speaker-hero-spark-one" />
@@ -63,7 +63,7 @@ function Hero() {
                   <img
                     src={speakersHero}
               alt=""
-              className="speaker-hero-image absolute bottom-0 left-1/2 h-[21rem] w-auto max-w-none -translate-x-1/2 object-contain sm:h-[24rem]"
+              className="speaker-hero-image absolute -top-12 left-1/2 h-[21rem] w-auto max-w-none -translate-x-1/2 object-contain sm:-top-16 sm:h-[24rem]"
             />
           </div>
 
