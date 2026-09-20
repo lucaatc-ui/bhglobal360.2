@@ -20,7 +20,7 @@ import { useEditMode } from "@/lib/edit-mode";
 import adlerPhoto from "@/assets/adler-martins.jpg.asset.json";
 import anaPhoto from "@/assets/ana-freitas.jpg.asset.json";
 import brunoPhoto from "@/assets/bruno-vasconcelos.jpg.asset.json";
-import speakersHero from "@/assets/palestrantes-evento.png.asset.json";
+import speakersHero from "@/assets/palestrantes-evento-completo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,8 +60,8 @@ function Hero() {
             <span className="speaker-hero-spark speaker-hero-spark-one" />
             <span className="speaker-hero-spark speaker-hero-spark-two" />
             <span className="speaker-hero-spark speaker-hero-spark-three" />
-            <img
-              src={speakersHero.url}
+                  <img
+                    src={speakersHero}
               alt=""
               className="speaker-hero-image absolute bottom-0 left-1/2 h-[21rem] w-auto max-w-none -translate-x-1/2 object-contain sm:h-[24rem]"
             />
