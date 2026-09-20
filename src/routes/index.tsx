@@ -20,6 +20,7 @@ import { useEditMode } from "@/lib/edit-mode";
 import adlerPhoto from "@/assets/adler-martins.jpg.asset.json";
 import anaPhoto from "@/assets/ana-freitas.jpg.asset.json";
 import brunoPhoto from "@/assets/bruno-vasconcelos.jpg.asset.json";
+import speakersHero from "@/assets/palestrantes-evento.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -53,9 +54,20 @@ function Hero() {
       />
       <div className="relative mx-auto max-w-4xl px-6 pt-20 pb-24 text-center">
         <div className="flex flex-col items-center text-center">
+          <div className="speaker-hero-stage relative h-72 w-full max-w-xl sm:h-80" aria-hidden="true">
+            <span className="speaker-hero-line speaker-hero-line-left" />
+            <span className="speaker-hero-line speaker-hero-line-right" />
+            <span className="speaker-hero-spark speaker-hero-spark-one" />
+            <span className="speaker-hero-spark speaker-hero-spark-two" />
+            <span className="speaker-hero-spark speaker-hero-spark-three" />
+            <img
+              src={speakersHero.url}
+              alt=""
+              className="speaker-hero-image absolute bottom-0 left-1/2 h-[21rem] w-auto max-w-none -translate-x-1/2 object-contain sm:h-[24rem]"
+            />
+          </div>
 
-
-          <h1 className="font-display mt-8 text-5xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-6xl">
+          <h1 className="font-display mt-5 text-5xl leading-[1.05] font-extrabold tracking-tight text-balance sm:mt-7 sm:text-6xl">
             <Ed id="hero.title1">
               O poder de levar sua família e patrimônio para fora do Brasil é
               crucial nos tempos de hoje.
