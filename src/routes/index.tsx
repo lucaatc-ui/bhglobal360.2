@@ -189,14 +189,11 @@ function About() {
 }
 
 const agenda = [
-  { id: "a1", time: "09h00", title: "Credenciamento e brunch completo de boas-vindas" },
-  { id: "a2", time: "11h30", title: "Palestra Bruno Vasconcelos - Empreender no Brasil atual" },
-  { id: "a3", time: "12h00", title: "Ana Freitas — Mobilidade Global: a estratégia que conecta patrimônio, negócios e liberdade internacional" },
-  { id: "a4", time: "13h00", title: "Tira dúvidas sobre a palestra Mobilidade Global." },
-  { id: "a5", time: "13h40", title: "Pausa de 20 minutos e continuação do Brunch" },
-  { id: "a6", time: "14h00", title: "Adler Martins - As novas estratégias de proteção de patrimonial para empresários e famílias - Imposto de Dividendos, Exportações, Contas Bancárias Estrangeiras" },
-  { id: "a7", time: "15h00", title: "Tira dúvidas com Adler Martins" },
-  { id: "a8", time: "16h00", title: "Happy Hour com chopp artesanal e acesso aos palestrantes" },
+  { id: "a1", time: "09h às 10h", title: "Credenciamento e brunch completo de boas-vindas" },
+  { id: "a2", time: "10h15 às 11h", title: "Ana Freitas — Mobilidade Global: a estratégia que conecta patrimônio, negócios e liberdade internacional" },
+  { id: "a3", time: "11h às 11h40", title: "Palestra Bruno Vasconcelos - Empreender no Brasil atual" },
+  { id: "a4", time: "11h45 às 13h", title: "Adler Martins - As novas estratégias de proteção de patrimonial para empresários e famílias" },
+  { id: "a5", time: "13h às 16h", title: "Happy Hour com vinhos e acesso aos palestrantes" },
 ];
 
 function Agenda() {
