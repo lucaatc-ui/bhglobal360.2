@@ -569,30 +569,20 @@ function Tickets() {
             Ingressos
           </Ed>
           <h2 className="font-display mt-4 text-4xl font-extrabold text-highlight sm:text-5xl">
-            <Ed id="tickets.title">Apenas 70 ingressos, dois lotes</Ed>
+            <Ed id="tickets.title">Apenas 70 ingressos</Ed>
           </h2>
           <Ed as="p" id="tickets.sub" className="mt-4 text-muted-foreground">
-            Lote 1 disponível — o preço sobe a cada lote
+            Lote 1 disponível — vagas limitadas
           </Ed>
         </div>
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className="mt-14 mx-auto max-w-md">
           {tickets.map((t) => (
             <div
               key={t.id}
-              className={`relative flex flex-col rounded-3xl border p-8 transition-transform ${
-                t.highlight
-                  ? "border-border bg-card/40 opacity-60"
-                  : "border-border bg-card/60 hover:-translate-y-1"
-              }`}
+              className="relative flex flex-col rounded-3xl border border-border bg-card/60 p-8 transition-transform hover:-translate-y-1"
             >
-              <span
-                className={`absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold ${
-                  t.highlight
-                    ? "bg-muted text-muted-foreground"
-                    : "bg-primary text-primary-foreground"
-                }`}
-              >
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-1 text-xs font-bold text-primary-foreground">
                 <Ed id={`tickets.${t.id}.tag`}>{t.tag}</Ed>
               </span>
               <h3 className="font-display text-xl font-bold">
@@ -623,25 +613,19 @@ function Tickets() {
                   </li>
                 ))}
               </ul>
-              {t.highlight ? (
-                <span className="font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold bg-muted text-muted-foreground cursor-not-allowed">
-                  <Ed id={`tickets.${t.id}.cta`}>A partir de 13/10</Ed>
-                </span>
-              ) : (
-                <a
-                  href="https://pay.kiwify.com.br/IQiYP8A"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => {
-                    if (typeof window !== "undefined" && (window as any).fbq) {
-                      (window as any).fbq("track", "InitiateCheckout");
-                    }
-                  }}
-                  className="font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition-transform hover:scale-105 bg-cta text-cta-foreground"
-                >
-                  <Ed id={`tickets.${t.id}.cta`}>Comprar agora</Ed>
-                </a>
-              )}
+              <a
+                href="https://pay.kiwify.com.br/IQiYP8A"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  if (typeof window !== "undefined" && (window as any).fbq) {
+                    (window as any).fbq("track", "InitiateCheckout");
+                  }
+                }}
+                className="font-display mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition-transform hover:scale-105 bg-cta text-cta-foreground"
+              >
+                <Ed id={`tickets.${t.id}.cta`}>Comprar agora</Ed>
+              </a>
             </div>
           ))}
         </div>
