@@ -554,19 +554,6 @@ const tickets = [
     highlight: false,
     tag: "Disponível agora",
   },
-  {
-    id: "l2",
-    name: "Lote 2",
-    price: "R$ 1.197",
-    features: [
-      "Acesso ao dia inteiro",
-      "Brunch completo incluso",
-      "Happy Hour com chopp artesanal",
-      "Certificado digital",
-    ],
-    highlight: true,
-    tag: "A partir de 13/10",
-  },
 ];
 
 function Tickets() {
